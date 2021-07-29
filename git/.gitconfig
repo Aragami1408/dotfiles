@@ -1,0 +1,11 @@
+[user]
+	name = Aragami1408
+	email = vucaominh1408@gmail.com
+[core]
+	editor = emacs
+	pager = most
+	autocrlf = input
+[mergo]
+	tool = kdiff3
+[color]
+	ui = true

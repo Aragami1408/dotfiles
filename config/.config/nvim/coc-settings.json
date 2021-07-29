@@ -1,0 +1,10 @@
+{
+  "coc.preferences.useQuickfixForLocations": true,
+  "clangd.checkUpdates": true,
+  "clangd.semanticHighlighting": true,
+  "rust-analyzer.updates.channel": "nightly",
+  "rust-analyzer.inlayHints.refreshOnInsertMode": true,
+  "rust-analyzer.notifications.cargoTomlNotFound": false,
+  "rust-analyzer.cargo.allFeatures": true,
+  "rust-analyzer.procMacro.enable": true
+}
