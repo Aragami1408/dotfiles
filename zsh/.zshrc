@@ -61,7 +61,7 @@ ENABLE_CORRECTION="true"
 # "mm/dd/yyyy"|"dd.mm.yyyy"|"yyyy-mm-dd"
 # or set a custom format using the strftime function format specifications,
 # see 'man strftime' for details.
-# HIST_STAMPS="mm/dd/yyyy"
+HIST_STAMPS="dd/mm/yyyy"
 
 # Would you like to use another custom folder than $ZSH/custom?
 # ZSH_CUSTOM=/path/to/new-custom-folder
@@ -140,7 +140,6 @@ alias yta-opus="youtube-dl --extract-audio --audio-format opus "
 alias yta-vorbis="youtube-dl --extract-audio --audio-format vorbis "
 alias yta-wav="youtube-dl --extract-audio --audio-format wav "
 alias ytv-best="youtube-dl -f bestvideo+bestaudio "
-alias dotfiles="/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME"
 
 export WINEPREFIX="$HOME/prefix32"
 export WINEARCH=win32
@@ -148,8 +147,6 @@ export XDG_CONFIG_HOME="$HOME/.config"
 export EDITOR="emacsclient -t -a ''"
 export VISUAL="emacsclient -c -a emacs"
 export PAGER="most"
-
-export PATH=~/sublime_text:$PATH
 
 # Clicking circles
 xsetwacom --set "Wacom Intuos BT S Pen stylus" Area 3900 3760 11810 9340 &
