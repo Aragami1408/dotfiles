@@ -89,9 +89,9 @@ let s:float_term_border_win = 0
 let s:float_term_win = 0
 function! FloatTerm(...)
   " Configuration
-  let height = float2nr((&lines - 2) * 0.6)
+  let height = float2nr((&lines - 2) * 0.8)
   let row = float2nr((&lines - height) / 2)
-  let width = float2nr(&columns * 0.6)
+  let width = float2nr(&columns * 0.8)
   let col = float2nr((&columns - width) / 2)
   " Border Window
   let border_opts = {
@@ -283,6 +283,12 @@ set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
 nnoremap <silent><nowait> <space>a  :<C-u>CocList diagnostics<cr>
 nnoremap <silent><nowait> <space>e  :<C-u>CocList extensions<cr>
 
+autocmd BufWritePre *.go :silent call CocAction('runCommand', 'editor.action.organizeImport')
+
+autocmd FileType go nmap gtj :CocCommand go.tags.add json<cr>
+autocmd FileType go nmap gty :CocCommand go.tags.add yaml<cr>
+autocmd FileType go nmap gtx :CocCommand go.tags.clear<cr>
+
 "airline config
 nnoremap <leader>bn :bnext<CR>
 nnoremap <leader>bp :bprevious<CR>
@@ -340,10 +346,10 @@ let g:fzf_layout = { 'window': {
 let $FZF_DEFAULT_COMMAND = 'rg --files --hidden'
 
 " fzf quick hotkeys
-nnoremap <silent> <leader>gf    :Files     <CR>
-nnoremap <silent> <leader>gg?   :GFiles?   <CR>
-nnoremap <silent> <leader>gb    :Buffers   <CR>
-nnoremap <silent> <leader>gh    :History   <CR>
-nnoremap <silent> <leader>gc    :Color     <CR>
-nnoremap <silent> <leader>gs    :Snippets  <CR>
+nnoremap <silent> <leader>ff    :Files     <CR>
+nnoremap <silent> <leader>fg   :GFiles?   <CR>
+nnoremap <silent> <leader>fb    :Buffers   <CR>
+nnoremap <silent> <leader>fh    :History   <CR>
+nnoremap <silent> <leader>fc    :Color     <CR>
+nnoremap <silent> <leader>fs    :Snippets  <CR>
 let g:choosewin_overlay_enable = 1
