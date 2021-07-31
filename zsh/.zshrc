@@ -128,8 +128,9 @@ alias gfetch='git fetch'
 alias gpull='git pull origin'
 alias gpush='git push origin'
 alias gstat='git status'  # 'status' is protected name so using 'stat' instead
-alias tag='git tag'
-alias newtag='git tag -a'
+alias gtag='git tag'
+alias gnewtag='git tag -a'
+alias clangd-compile-commands="cmake -DCMAKE_EXPORT_COMPILE_COMMANDS=1"
 alias yta-aac="youtube-dl --extract-audio --audio-format aac "
 alias yta-best="youtube-dl --extract-audio --audio-format best "
 alias yta-flac="youtube-dl --extract-audio --audio-format flac "

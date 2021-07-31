@@ -9,3 +9,5 @@
 	tool = kdiff3
 [color]
 	ui = true
+[init]
+	defaultBranch = master
