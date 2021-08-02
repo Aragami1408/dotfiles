@@ -165,7 +165,7 @@ nnoremap <leader>wk :wincmd k<CR>
 nnoremap <leader>wj :wincmd j<CR>
 nnoremap <leader>w= :wincmd =<CR>
 
-nnoremap <leader>tt :call FloatTerm()<CR>
+nnoremap <leader>tt :call FloatTerm('"tmux"')<CR>
 nnoremap <leader>tg :call FloatTerm('"lazygit"')<CR>
 nnoremap <leader>tn :call FloatTerm('"node"')<CR>
 nnoremap <leader>tp :call FloatTerm('"python"')<CR>

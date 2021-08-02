@@ -112,8 +112,6 @@ alias cocconfig="nvim ~/.config/nvim/coc-settings.json"
 alias ls='exa -al --color=always --group-directories-first' # my preferred listing
 alias lt='exa -aT --color=always --group-directories-first' # tree listing
 alias l.='exa -a | egrep "^\."'
-alias vim="nvim"
-alias yt_playlist_dl='youtube-dl -f "bestaudio" --continue --no-overwrites --ignore-errors --extract-audio --audio-format mp3 -o "%(title)s.%(ext)s"'
 alias src_vis="gource -s 1 --font-size 11 --key --highlight-users"
 alias osu="WINEDEBUG=-all wine ~/Games/osu!/osu!.exe &"
 alias glog="git log --graph --decorate --oneline --all"
@@ -140,6 +138,7 @@ alias yta-opus="youtube-dl --extract-audio --audio-format opus "
 alias yta-vorbis="youtube-dl --extract-audio --audio-format vorbis "
 alias yta-wav="youtube-dl --extract-audio --audio-format wav "
 alias ytv-best="youtube-dl -f bestvideo+bestaudio "
+alias yta-aupl='youtube-dl -f "bestaudio" --continue --no-overwrites --ignore-errors --extract-audio --audio-format opus -o "%(title)s.%(ext)s"'
 
 export WINEPREFIX="$HOME/prefix32"
 export WINEARCH=win32
