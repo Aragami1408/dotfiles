@@ -139,6 +139,7 @@ alias yta-vorbis="youtube-dl --extract-audio --audio-format vorbis "
 alias yta-wav="youtube-dl --extract-audio --audio-format wav "
 alias ytv-best="youtube-dl -f bestvideo+bestaudio "
 alias yta-aupl='youtube-dl -f "bestaudio" --continue --no-overwrites --ignore-errors --extract-audio --audio-format opus -o "%(title)s.%(ext)s"'
+alias docker="sudo docker"
 
 export WINEPREFIX="$HOME/prefix32"
 export WINEARCH=win32
