@@ -1,9 +1,8 @@
-source ~/zsh-plugins/zsh-snap/znap.zsh
 # If you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
 # Path to your oh-my-zsh installation.
-export ZSH="/home/aragami1408/.oh-my-zsh"
+export ZSH="/home/$USER/.oh-my-zsh"
 
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time oh-my-zsh is loaded, in which case,
@@ -148,6 +147,4 @@ export EDITOR="emacsclient -t -a ''"
 export VISUAL="emacsclient -c -a emacs"
 export PAGER="most"
 
-# Clicking circles
-xsetwacom --set "Wacom Intuos BT S Pen stylus" Area 3900 3760 11810 9340 &
 if [ "$TMUX" = "" ]; then tmux; fi
