@@ -6,6 +6,7 @@ window:
     y: 6
   dynamic_padding: false
   decorations: full
+  startup_mode: Maximized
   title: Alacritty - We Hate Kitty
   class:
     instance: Alacritty
