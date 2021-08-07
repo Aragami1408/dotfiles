@@ -127,7 +127,7 @@ super + alt + a
     alacritty -e ncpamixer
 # launch surf browser
 super + alt + b
-    surf www.youtube.com/c/DistroTube
+    google-chrome-unstable
 # launch cmus
 super + alt + c
     alacritty -e cmus
