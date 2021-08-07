@@ -5,9 +5,9 @@ window:
     x: 6
     y: 6
   dynamic_padding: false
-  decorations: full
+  decorations: none
   startup_mode: Maximized
-  title: Alacritty - We Hate Kitty
+  title: Higanbana is a Gentoomen
   class:
     instance: Alacritty
     general: Alacritty
@@ -16,18 +16,18 @@ scrolling:
   history: 5000
 font:
   normal:
-    family: Source Code Pro
+    family: Inconsolata
     style: Regular
   bold:
-    family: Source Code Pro
+    family: Inconsolata
     style: Bold
   italic:
-    family: Source Code Pro
+    family: Inconsolata
     style: Italic
   bold_italic:
-    family: Source Code Pro
+    family: Inconsolata
     style: Bold Italic
-  size: 11
+  size: 12
   offset:
     x: 0
     y: 1
