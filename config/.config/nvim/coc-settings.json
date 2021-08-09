@@ -1,18 +1,23 @@
 {
   "coc.preferences.useQuickfixForLocations": true,
-  "clangd.checkUpdates": true,
-  "clangd.semanticHighlighting": true,
-  "rust-analyzer.updates.channel": "nightly",
-  "rust-analyzer.inlayHints.refreshOnInsertMode": true,
-  "rust-analyzer.notifications.cargoTomlNotFound": false,
-  "rust-analyzer.cargo.allFeatures": true,
-  "rust-analyzer.procMacro.enable": true,
+  "clangd.arguments": ["--clang-tidy"],
   "languageserver": {
     "haskell": {
       "command": "haskell-language-server-wrapper",
       "args": ["--lsp"],
       "rootPatterns": ["*.cabal", "stack.yaml", "cabal.project", "package.yaml", "hie.yaml"],
       "filetypes": ["haskell", "lhaskell"]
+    },
+    "cmake": {
+        "command": "cmake-language-server",
+        "filetypes": ["cmake"],
+        "rootPatterns": [
+            "build/"
+        ],
+        "initializationOptions": {
+            "buildDirectory": "build"
+        }
     }
-  }
+  },
+  "clangd.path": "/home/higanbana/.config/coc/extensions/coc-clangd-data/install/12.0.1/clangd_12.0.1/bin/clangd"
 }
