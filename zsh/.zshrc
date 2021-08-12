@@ -98,7 +98,7 @@ fi
 #
 # Example aliases
 
-if [-d "$HOME/.bin"]
+if [ -d "$HOME/.bin" ] ;
     then PATH="$HOME/.bin:$PATH"
 fi
 
@@ -231,6 +231,8 @@ alias docker="sudo docker"
 alias br="broot -dhp"
 alias bs="broot --sizes"
 
+alias neofetch="neofetch --ascii ~/.danct12"
+
 export WINEPREFIX="$HOME/prefix32"
 export WINEARCH=win32
 export XDG_CONFIG_HOME="$HOME/.config"
@@ -240,3 +242,10 @@ export PAGER="most"
 
 if [ "$TMUX" = "" ]; then tmux; fi
 [ -f "/home/higanbana/.ghcup/env" ] && source "/home/higanbana/.ghcup/env" # ghcup-env
+
+# Toi can go Tieng Viet 
+if [[ $(pgrep ibus-daemon) ]]; then
+    echo "ibus-daemon already here."
+else 
+    ibus-daemon &
+fi

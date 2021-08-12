@@ -40,6 +40,8 @@ set autoread
 set autowrite
 set autoindent
 set si
+set cindent
+set ft=nasm
 syntax on
 set nobackup
 set nowb
@@ -155,6 +157,8 @@ inoremap <C-b> <Left>
 inoremap <C-e> <C-o>$
 inoremap <C-a> <C-o>^
 
+vmap <Tab> >
+vmap <S-Tab> <
 
 nnoremap <leader><tab> za
 
