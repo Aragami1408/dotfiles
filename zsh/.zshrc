@@ -231,7 +231,7 @@ alias docker="sudo docker"
 alias br="broot -dhp"
 alias bs="broot --sizes"
 
-alias neofetch="neofetch --ascii ~/.danct12"
+alias neofetch="neofetch --ascii ~/.nfdp"
 
 export WINEPREFIX="$HOME/prefix32"
 export WINEARCH=win32
