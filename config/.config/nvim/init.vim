@@ -24,6 +24,7 @@ else
   Plug 'mhinz/vim-signify', { 'branch': 'legacy' }
 endif
 Plug 'mhinz/vim-startify'
+Plug 'mattn/emmet-vim'
 call plug#end()
 
 " Basic config section
