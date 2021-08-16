@@ -16,7 +16,7 @@
 ;; + `doom-variable-pitch-font'
 ;; + `doom-big-font' -- used for `doom-big-font-mode'; use this for
 ;;   presentations or streaming.
-(setq doom-font (font-spec :family "Source Code Pro" :size 13))
+(setq doom-font (font-spec :family "Inconsolata" :size 15))
 ;; They all accept either a font-spec, font string ("Input Mono-12"), or xlfd
 ;; font string. You generally only need these two:
 ;; (setq doom-font (font-spec :family "monospace" :size 12 :weight 'semi-light)
@@ -35,6 +35,7 @@
 ;; numbers are disabled. For relative line numbers, set this to `relative'.
 (setq display-line-numbers-type t)
 (setq neo-window-fixed-size nil)
+(setq org-directory "~/git_project/org_docs/")
 
 ;; Here are some additional functions/macros that could help you configure Doom:
 ;;
@@ -52,6 +53,8 @@
 ;;
 ;; You can also try 'gd' (or 'C-c c d') to jump to their definition and see how
 ;; they are implemented.
+;;
+
 
 
 (setq lsp-clients-clangd-args '("-j=3"

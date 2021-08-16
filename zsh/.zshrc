@@ -152,6 +152,10 @@ function extract {
 fi
 }
 
+groff_to_pdf() {
+    groff -ms $1.ms -T pdf >> $1.pdf
+}
+
 
 alias reload="source ~/.zshrc"
 
@@ -165,6 +169,7 @@ alias compconfig="nvim ~/.config/picom/picom.conf"
 alias cocconfig="nvim ~/.config/nvim/coc-settings.json"
 alias roficonfig="nvim ~/.config/rofi/config.rasi"
 alias tmuxconfig="nvim ~/.config/tmux/tmux.conf"
+alias ncmpconfig="nvim ~/.config/ncmpcpp/config"
 
 alias ls='exa -al --color=always --group-directories-first' # my preferred listing
 alias la='exa -a --color=always --group-directories-first'  # all files and dirs
@@ -194,7 +199,6 @@ alias pscpu10='ps auxf | sort -nr -k 3 | head -10'
 alias gpg-check="gpg2 --keyserver-options auto-key-retrieve --verify"
 
 alias gpg-retrieve="gpg2 --keyserver-options auto-key-retrieve --receive-keys"
-
 
 alias src_vis="gource -s 1 --font-size 11 --key --highlight-users"
 
@@ -232,6 +236,7 @@ alias br="broot -dhp"
 alias bs="broot --sizes"
 
 alias neofetch="neofetch --ascii ~/.nfdp"
+alias doom="~/.emacs.d/bin/doom"
 
 export WINEPREFIX="$HOME/prefix32"
 export WINEARCH=win32
@@ -249,3 +254,5 @@ if [[ $(pgrep ibus-daemon) ]]; then
 else 
     ibus-daemon &
 fi
+
+

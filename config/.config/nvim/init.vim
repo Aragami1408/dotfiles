@@ -25,6 +25,7 @@ else
 endif
 Plug 'mhinz/vim-startify'
 Plug 'mattn/emmet-vim'
+Plug 'neovim/nvim-lspconfig'
 call plug#end()
 
 " Basic config section
@@ -171,7 +172,7 @@ nnoremap <leader>wk :wincmd k<CR>
 nnoremap <leader>wj :wincmd j<CR>
 nnoremap <leader>w= :wincmd =<CR>
 
-nnoremap <leader>tt :call FloatTerm('"tmux"')<CR>
+nnoremap <leader>tt :call FloatTerm()<CR>
 nnoremap <leader>tg :call FloatTerm('"lazygit"')<CR>
 nnoremap <leader>tn :call FloatTerm('"node"')<CR>
 nnoremap <leader>tp :call FloatTerm('"python"')<CR>
@@ -296,9 +297,9 @@ autocmd FileType go nmap gtj :CocCommand go.tags.add json<cr>
 autocmd FileType go nmap gty :CocCommand go.tags.add yaml<cr>
 autocmd FileType go nmap gtx :CocCommand go.tags.clear<cr>
 
-"airline config
-nnoremap <leader>bn :bnext<CR>
-nnoremap <leader>bp :bprevious<CR>
+" buffer and airline config
+nnoremap <leader>b[ :bnext<CR>
+nnoremap <leader>b] :bprevious<CR>
 nmap <leader>b1 :bfirst<CR>
 nmap <leader>b2 :bfirst<CR>:bn<CR>
 nmap <leader>b3 :bfirst<CR>:2bn<CR>
@@ -360,3 +361,4 @@ nnoremap <silent> <leader>fh    :History   <CR>
 nnoremap <silent> <leader>fc    :Color     <CR>
 nnoremap <silent> <leader>fs    :Snippets  <CR>
 let g:choosewin_overlay_enable = 1
+
