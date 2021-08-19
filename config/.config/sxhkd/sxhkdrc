@@ -164,7 +164,7 @@ super + alt + y
 
 # run program launcher
 alt + ctrl + Return
-    rofi -combi-modi window,drun,ssh -theme solarized -font "hack 10" -show combi -icon-theme "Papirus" -show-icons
+    dmenu_run
 # edit common config files
 alt + ctrl + e
    ~/.dmenu/dmenu-edit-configs.sh

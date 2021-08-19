@@ -170,6 +170,8 @@ alias cocconfig="nvim ~/.config/nvim/coc-settings.json"
 alias roficonfig="nvim ~/.config/rofi/config.rasi"
 alias tmuxconfig="nvim ~/.config/tmux/tmux.conf"
 alias ncmpconfig="nvim ~/.config/ncmpcpp/config"
+alias barconfig="nvim ~/.config/polybar/config"
+alias displayconfig="nvim ~/.screenlayout/dual_monitor_1600_900.sh"
 
 alias ls='exa -al --color=always --group-directories-first' # my preferred listing
 alias la='exa -a --color=always --group-directories-first'  # all files and dirs
@@ -254,5 +256,4 @@ if [[ $(pgrep ibus-daemon) ]]; then
 else 
     ibus-daemon &
 fi
-
 
