@@ -15,18 +15,18 @@ scrolling:
   history: 5000
 font:
   normal:
-    family: Inconsolata
+    family: BigBlue Terminal Plus
     style: Regular
   bold:
-    family: Inconsolata
+    family: BigBlue Terminal Plus
     style: Bold
   italic:
-    family: Inconsolata
+    family: BigBlue Terminal Plus
     style: Italic
   bold_italic:
-    family: Inconsolata
+    family: BigBlue Terminal Plus
     style: Bold Italic
-  size: 12
+  size: 10
   offset:
     x: 0
     y: 1

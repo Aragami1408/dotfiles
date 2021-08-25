@@ -156,9 +156,10 @@ groff_to_pdf() {
     groff -ms $1.ms -T pdf >> $1.pdf
 }
 
-
+# Reload Shell
 alias reload="source ~/.zshrc"
 
+# 
 alias zshconfig="nvim ~/.zshrc"
 alias vimconfig="nvim ~/.config/nvim/init.vim"
 alias termconfig="nvim ~/.config/alacritty/alacritty.yml"
@@ -199,25 +200,12 @@ alias pscpu='ps auxf | sort -nr -k 3'
 alias pscpu10='ps auxf | sort -nr -k 3 | head -10'
 
 alias gpg-check="gpg2 --keyserver-options auto-key-retrieve --verify"
-
 alias gpg-retrieve="gpg2 --keyserver-options auto-key-retrieve --receive-keys"
 
 alias src_vis="gource -s 1 --font-size 11 --key --highlight-users"
 
 alias glog="git log --graph --decorate --oneline --all"
 alias gsync="git checkout master && git fetch upstream && git rebase upstream/master && git push"
-alias gaddup='git add -u'
-alias gaddall='git add .'
-alias gbranch='git branch'
-alias gcheckout='git checkout'
-alias gclone='git clone'
-alias gcommit='git commit -m'
-alias gfetch='git fetch'
-alias gpull='git pull origin'
-alias gpush='git push origin'
-alias gstat='git status'  # 'status' is protected name so using 'stat' instead
-alias gtag='git tag'
-alias gnewtag='git tag -a'
 
 alias clangd-compile-commands="cmake -DCMAKE_EXPORT_COMPILE_COMMANDS=1"
 

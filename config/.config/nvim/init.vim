@@ -26,6 +26,7 @@ endif
 Plug 'mhinz/vim-startify'
 Plug 'mattn/emmet-vim'
 Plug 'neovim/nvim-lspconfig'
+Plug 'junegunn/goyo.vim'
 call plug#end()
 
 " Basic config section
@@ -86,6 +87,8 @@ let g:clipboard = {
 
 " insert init.vim path after :e
 command! -nargs=0 VimConfig :e ~/.config/nvim/init.vim
+command! -nargs=0 TermConfig :e ~/.config/alacritty/alacritty.yml
+
 set splitbelow
 set splitright
 
@@ -223,8 +226,8 @@ endif
 inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm()
     \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
 
-nmap <silent> <leader> [g <Plug>(coc-diagnostic-prev)
-nmap <silent> <leader> ]g <Plug>(coc-diagnostic-next)
+nmap <silent> <leader>[g <Plug>(coc-diagnostic-prev)
+nmap <silent> <leader>]g <Plug>(coc-diagnostic-next)
 
 nmap <silent> <leader>gd <Plug>(coc-definition)
 nmap <silent> <leader>gy <Plug>(coc-type-definition)
@@ -298,8 +301,8 @@ autocmd FileType go nmap gty :CocCommand go.tags.add yaml<cr>
 autocmd FileType go nmap gtx :CocCommand go.tags.clear<cr>
 
 " buffer and airline config
-nnoremap <leader>b[ :bnext<CR>
-nnoremap <leader>b] :bprevious<CR>
+nnoremap <leader>b[ :bprevious<CR>
+nnoremap <leader>b] :bnext<CR>
 nmap <leader>b1 :bfirst<CR>
 nmap <leader>b2 :bfirst<CR>:bn<CR>
 nmap <leader>b3 :bfirst<CR>:2bn<CR>
@@ -355,7 +358,7 @@ let $FZF_DEFAULT_COMMAND = 'rg --files --hidden'
 
 " fzf quick hotkeys
 nnoremap <silent> <leader>ff    :Files     <CR>
-nnoremap <silent> <leader>fg   :GFiles?   <CR>
+nnoremap <silent> <leader>fg    :GFiles?   <CR>
 nnoremap <silent> <leader>fb    :Buffers   <CR>
 nnoremap <silent> <leader>fh    :History   <CR>
 nnoremap <silent> <leader>fc    :Color     <CR>
