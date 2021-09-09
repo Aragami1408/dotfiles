@@ -72,6 +72,7 @@ set undolevels=1000
 set undoreload=10000
 set updatetime=300
 
+" Delete this if you are a Windows users
 let g:clipboard = {
   \   'name': 'xclip-xfce4-clipman',
   \   'copy': {
@@ -85,7 +86,7 @@ let g:clipboard = {
   \   'cache_enabled': 1,
   \ }
 
-" insert init.vim path after :e
+" insert your own init.vim path after :e
 command! -nargs=0 VimConfig :e ~/.config/nvim/init.vim
 command! -nargs=0 TermConfig :e ~/.config/alacritty/alacritty.yml
 
@@ -119,9 +120,9 @@ function! FloatTerm(...)
         \ 'height': height,
         \ 'style': 'minimal'
         \ }
-  let top = "╭" . repeat("─", width + 2) . "╮"
+  let top = "+" . repeat("─", width + 2) . "+"
   let mid = "│" . repeat(" ", width + 2) . "│"
-  let bot = "╰" . repeat("─", width + 2) . "╯"
+  let bot = "+" . repeat("─", width + 2) . "+"
   let lines = [top] + repeat([mid], height) + [bot]
   let bbuf = nvim_create_buf(v:false, v:true)
   call nvim_buf_set_lines(bbuf, 0, -1, v:true, lines)
@@ -142,7 +143,7 @@ function! FloatTerm(...)
   autocmd TermClose * ++once :bd! | call nvim_win_close(s:float_term_border_win, v:true)
 endfunction
 
-" Basic key mapping section
+" Basic key mapping section (sorry I'm emacs user)
 let g:mapleader = " "
 
 nmap <leader>w :w!<cr>
@@ -154,18 +155,10 @@ nnoremap H h
 nnoremap l w
 nnoremap h b
 
-nnoremap <C-k> <C-u>
-nnoremap <C-j> <C-d>
-
-inoremap <C-f> <Right>
-inoremap <C-b> <Left>
-inoremap <C-e> <C-o>$
-inoremap <C-a> <C-o>^
-
+# Shifting selected line(s)
 vmap <Tab> >
 vmap <S-Tab> <
 
-nnoremap <leader><tab> za
 
 nnoremap <leader>wv :vsplit<CR>
 nnoremap <leader>ws :split<CR>
@@ -205,36 +198,15 @@ else
     set signcolumn=yes
 endif
 
-inoremap <silent><expr> <TAB>
-    \ pumvisible() ? "\<C-n>" :
-    \ <SID>check_back_space() ? "\<TAB>" :
-    \ coc#refresh()
+nmap <silent> <leader>c[ <Plug>(coc-diagnostic-prev)
+nmap <silent> <leader>c] <Plug>(coc-diagnostic-next)
 
-inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+nmap <silent> <leader>cd <Plug>(coc-definition)
+nmap <silent> <leader>ct <Plug>(coc-type-definition)
+nmap <silent> <leader>cm <Plug>(coc-implementation)
+nmap <silent> <leader>cf <Plug>(coc-references)
 
-function! s:check_back_space() abort
-    let col = col('.') - 1
-    return !col || getline('.')[col - 1]  =~# '\s'
-endfunction
-
-if has('nvim')
-    inoremap <silent><expr> <c-space> coc#refresh()
-else
-    inoremap <silent><expr> <c-@> coc#refresh()
-endif
-
-inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm()
-    \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
-
-nmap <silent> <leader>[g <Plug>(coc-diagnostic-prev)
-nmap <silent> <leader>]g <Plug>(coc-diagnostic-next)
-
-nmap <silent> <leader>gd <Plug>(coc-definition)
-nmap <silent> <leader>gy <Plug>(coc-type-definition)
-nmap <silent> <leader>gi <Plug>(coc-implementation)
-nmap <silent> <leader>gr <Plug>(coc-references)
-
-nnoremap <silent> <leader>K :call <SID>show_documentation()<CR>
+nnoremap <silent> <leader>ck :call <SID>show_documentation()<CR>
 
 function! s:show_documentation()
     if (index(['vim','help'], &filetype) >= 0)
@@ -248,10 +220,10 @@ endfunction
 
 autocmd CursorHold * silent call CocActionAsync('highlight')
 
-nmap <leader>rn <Plug>(coc-rename)
+nmap <leader>cr <Plug>(coc-rename)
 
-xmap <leader>gf <Plug>(coc-format-selected)
-nmap <leader>gf <Plug>(coc-format-selected)
+xmap <leader>cs <Plug>(coc-format-selected)
+nmap <leader>cs <Plug>(coc-format-selected)
 
 augroup mygroup
 autocmd!
@@ -259,20 +231,12 @@ autocmd FileType typescript,json setl formatexpr=CocAction('formatSelected')
 autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
 augroup end
 
-xmap <leader>as <Plug>(coc-codeaction-selection)
-nmap <leader>as <Plug>(coc-codeaction-selection)
+xmap <leader>cas <Plug>(coc-codeaction-selection)
+nmap <leader>cas <Plug>(coc-codeaction-selection)
 
-nmap <leader>ac <Plug>(coc-codeaction)
-nmap <leader>qf <Plug>(coc-fix-current)
+nmap <leader>cac <Plug>(coc-codeaction)
+nmap <leader>cqf <Plug>(coc-fix-current)
 
-xmap if <Plug>(coc-funcobj-i)
-omap if <Plug>(coc-funcobj-i)
-xmap af <Plug>(coc-funcobj-a)
-omap af <Plug>(coc-funcobj-a)
-xmap ic <Plug>(coc-classobj-i)
-omap ic <Plug>(coc-classobj-i)
-xmap ac <Plug>(coc-classobj-a)
-omap ac <Plug>(coc-classobj-a)
 
 if has('nvim-0.4.0') || has('patch-8.2.0750')
 nnoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? coc#float#scroll(1) : "\<C-f>"
@@ -291,14 +255,8 @@ command! -nargs=? Fold :call     CocAction('fold', <f-args>)
 command! -nargs=0 OR   :call     CocAction('runCommand', 'editor.action.organizeImport')
 set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
 
-nnoremap <silent><nowait> <space>a  :<C-u>CocList diagnostics<cr>
-nnoremap <silent><nowait> <space>e  :<C-u>CocList extensions<cr>
-
-autocmd BufWritePre *.go :silent call CocAction('runCommand', 'editor.action.organizeImport')
-
-autocmd FileType go nmap gtj :CocCommand go.tags.add json<cr>
-autocmd FileType go nmap gty :CocCommand go.tags.add yaml<cr>
-autocmd FileType go nmap gtx :CocCommand go.tags.clear<cr>
+nnoremap <silent><nowait> <leader>a  :<C-u>CocList diagnostics<cr>
+nnoremap <silent><nowait> <leader>e  :<C-u>CocList extensions<cr>
 
 " buffer and airline config
 nnoremap <leader>b[ :bprevious<CR>
