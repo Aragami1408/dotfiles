@@ -228,7 +228,7 @@ alias bs="broot --sizes"
 alias neofetch="neofetch --ascii ~/.nfdp"
 alias doom="~/.emacs.d/bin/doom"
 
-export WINEPREFIX="$HOME/prefix32"
+export WINEPREFIX="$HOME/.wine_games"
 export WINEARCH=win32
 export XDG_CONFIG_HOME="$HOME/.config"
 export EDITOR="emacsclient -t -a ''"

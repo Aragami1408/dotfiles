@@ -6,8 +6,6 @@ Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'terryma/vim-multiple-cursors'
-Plug 'junegunn/fzf.vim'
-Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'preservim/nerdcommenter'
 Plug 'easymotion/vim-easymotion'
 Plug 'Xuyuanp/nerdtree-git-plugin'
@@ -15,7 +13,6 @@ Plug 'junegunn/vim-github-dashboard'
 Plug 'tpope/vim-fugitive'
 Plug 'junegunn/gv.vim'
 Plug 'jackguo380/vim-lsp-cxx-highlight'
-Plug 'liuchengxu/vista.vim'
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 Plug 'puremourning/vimspector'
 Plug 'szw/vim-maximizer'
@@ -25,9 +22,13 @@ else
   Plug 'mhinz/vim-signify', { 'branch': 'legacy' }
 endif
 Plug 'mhinz/vim-startify'
-Plug 'mattn/emmet-vim'
 Plug 'neovim/nvim-lspconfig'
-Plug 'junegunn/goyo.vim'
+Plug 'nvim-lua/plenary.nvim'
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+Plug 'junegunn/fzf.vim'
+Plug 'hrsh7th/nvim-cmp'
+Plug 'hrsh7th/vim-vsnip'
+Plug 'hrsh7th/cmp-buffer'
 call plug#end()
 
 " Basic config section
@@ -72,6 +73,25 @@ set undodir=$HOME/.config/nvim/undo
 set undolevels=1000
 set undoreload=10000
 set updatetime=300
+
+" filetype handler
+filetype on
+filetype plugin on
+filetype indent on
+augroup filetype
+    autocmd BufNewFile, BufRead */.Postponed/* set filetype=mail
+    autocmd BufNewFile, BufRead *.txt set filetype=human
+augroup END
+
+autocmd FileType mail set formatoptions+=t textwidth=72
+autocmd FileType human set formatoptions-=t textwidth=0
+
+autocmd FileType html, xhtml, css, xml, xslt set shiftwidth=2 softtabstop=2
+autocmd FileType vim, lua, nginx set shiftwidth=2 softtabstop=2
+
+autocmd FileType make set noexpandtab shiftwidth=8 softtabstop=0
+autocmd FileType asm set noexpandtab shiftwidth=8 softtabstop=0 syntax=nasm
+
 
 " Delete this if you are a Windows users
 let g:clipboard = {
@@ -298,51 +318,44 @@ let g:airline#extensions#tabline#left_sep = ' '
 let g:airline#extensions#tabline#left_alt_sep = '|'
 let g:airline#extensions#tabline#formatter = 'unique_tail_improved'
 
-"vista.vim config
-function! NearestMethodOrFunction() abort
-return get(b:, 'vista_nearest_method_or_function', '')
-endfunction
-
-set statusline+=%{NearestMethodOrFunction()}
-autocmd VimEnter * call vista#RunForNearestMethodOrFunction()
-
-let g:vista_icon_indent = ["╰─▸ ", "├─▸ "]
-let g:vista_default_executive = 'ctags'
-let g:vista_executive_for = {
-\ 'cpp': 'vim_lsp',
-\ }
 
 
-let g:vista_ctags_cmd = {
-  \ 'haskell': 'hasktags -x -o - -c',
-  \ }
+" fzf
+nnoremap <leader>ff :Files<cr>
+nnoremap <leader>fg :GFiles<cr>
+nnoremap <leader>fb :Buffers<cr>
+nnoremap <leader>fh :Tags<cr>
 
-let g:vista_fzf_preview = ['right:50%']
+" Debugging
+let g:vimspector_bottombar_height = 10
 
-let g:vista#renderer#enable_icon = 1
+fun GotoWindow(id)
+    call win_gotoid(a:id)
+    MaximizerToggle
+endfun
 
-let g:vista#renderer#icons = {
-\   "function": "\uf794",
-\   "variable": "\uf71b",
-\  }
+nnoremap <leader>m :MaximizerToggle!<CR>
+nnoremap <leader>dd :call vimspector#Launch()<CR>
+nnoremap <leader>dc :call GotoWindow(g:vimspector_session_windows.code)<CR>
+nnoremap <leader>dt :call GotoWindow(g:vimspector_session_windows.tagpage)<CR>
+nnoremap <leader>dv :call GotoWindow(g:vimspector_session_windows.variables)<CR>
+nnoremap <leader>dw :call GotoWindow(g:vimspector_session_windows.watches)<CR>
+nnoremap <leader>ds :call GotoWindow(g:vimspector_session_windows.stack_trace)<CR>
+nnoremap <leader>do :call GotoWindow(g:vimspector_session_windows.output)<CR>
+nnoremap <leader>de :call vimspector#Reset()<CR>
 
-"fzf config section
+nnoremap <leader>dtcb :call Vimspector#CleanLineBreakpoint()<CR>
 
-let g:fzf_layout = { 'window': {
-  \ 'width': 0.9,
-  \ 'height': 0.7,
-  \ 'highlight': 'Comment',
-  \ 'rounded': v:false } }
-let $FZF_DEFAULT_COMMAND = 'rg --files --hidden'
+nmap <leader>dl <Plug>VimspectorStepInto
+nmap <leader>dj <Plug>VimspectorStepOver
+nmap <leader>dk <Plug>VimspectorStepOut
+nmap <leader>d_ <Plug>VimspectorRestart
+nnoremap <leader>d<space> :call vimspector#Continue()<CR>
 
-" fzf quick hotkeys
-nnoremap <silent> <leader>ff    :Files     <CR>
-nnoremap <silent> <leader>fg    :GFiles?   <CR>
-nnoremap <silent> <leader>fb    :Buffers   <CR>
-nnoremap <silent> <leader>fh    :History   <CR>
-nnoremap <silent> <leader>fc    :Color     <CR>
-nnoremap <silent> <leader>fs    :Snippets  <CR>
-let g:choosewin_overlay_enable = 1
+nmap <leader>drc <Plug>VimspectorRunToCursor
+nmap <leader>dbp <Plug>VimspectorToggleBreakpoint
+nmap <leader>dcbp <Plug>VimspectorToggleConditionalBreakpoint
+
 
 " lua scripts here
 lua << EOF
@@ -389,4 +402,5 @@ for _, lsp in ipairs(servers) do
     }
   }
 end
+
 EOF
