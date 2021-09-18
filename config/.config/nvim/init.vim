@@ -74,23 +74,6 @@ set undolevels=1000
 set undoreload=10000
 set updatetime=300
 
-" filetype handler
-filetype on
-filetype plugin on
-filetype indent on
-augroup filetype
-    autocmd BufNewFile, BufRead */.Postponed/* set filetype=mail
-    autocmd BufNewFile, BufRead *.txt set filetype=human
-augroup END
-
-autocmd FileType mail set formatoptions+=t textwidth=72
-autocmd FileType human set formatoptions-=t textwidth=0
-
-autocmd FileType html, xhtml, css, xml, xslt set shiftwidth=2 softtabstop=2
-autocmd FileType vim, lua, nginx set shiftwidth=2 softtabstop=2
-
-autocmd FileType make set noexpandtab shiftwidth=8 softtabstop=0
-autocmd FileType asm set noexpandtab shiftwidth=8 softtabstop=0 syntax=nasm
 
 
 " Delete this if you are a Windows users
@@ -239,65 +222,8 @@ endif
 inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm()
                               \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
 
-nmap <silent> <leader>c[ <Plug>(coc-diagnostic-prev)
-nmap <silent> <leader>c] <Plug>(coc-diagnostic-next)
-
-nmap <silent> <leader>cd <Plug>(coc-definition)
-nmap <silent> <leader>ct <Plug>(coc-type-definition)
-nmap <silent> <leader>cm <Plug>(coc-implementation)
-nmap <silent> <leader>cf <Plug>(coc-references)
-
-nnoremap <silent> <leader>ck :call <SID>show_documentation()<CR>
-
-function! s:show_documentation()
-    if (index(['vim','help'], &filetype) >= 0)
-        execute 'h '.expand('<cword>')
-    elseif (coc#rpc#ready())
-        call CocActionAsync('doHover')
-    else
-        execute '!' . &keywordprg . " " . expand('<cword>')
-    endif
-endfunction
 
 autocmd CursorHold * silent call CocActionAsync('highlight')
-
-nmap <leader>cr <Plug>(coc-rename)
-
-xmap <leader>cs <Plug>(coc-format-selected)
-nmap <leader>cs <Plug>(coc-format-selected)
-
-augroup mygroup
-autocmd!
-autocmd FileType typescript,json setl formatexpr=CocAction('formatSelected')
-autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
-augroup end
-
-xmap <leader>cas <Plug>(coc-codeaction-selection)
-nmap <leader>cas <Plug>(coc-codeaction-selection)
-
-nmap <leader>cac <Plug>(coc-codeaction)
-nmap <leader>cqf <Plug>(coc-fix-current)
-
-
-if has('nvim-0.4.0') || has('patch-8.2.0750')
-nnoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? coc#float#scroll(1) : "\<C-f>"
-nnoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? coc#float#scroll(0) : "\<C-b>"
-inoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(1)\<cr>" : "\<Right>"
-inoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(0)\<cr>" : "\<Left>"
-vnoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? coc#float#scroll(1) : "\<C-f>"
-vnoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? coc#float#scroll(0) : "\<C-b>"
-endif
-
-nmap <silent> <C-s> <Plug>(coc-range-select)
-xmap <silent> <C-s> <Plug>(coc-range-select)
-
-command! -nargs=0 Format :call CocAction('format')
-command! -nargs=? Fold :call     CocAction('fold', <f-args>)
-command! -nargs=0 OR   :call     CocAction('runCommand', 'editor.action.organizeImport')
-set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
-
-nnoremap <silent><nowait> <leader>a  :<C-u>CocList diagnostics<cr>
-nnoremap <silent><nowait> <leader>e  :<C-u>CocList extensions<cr>
 
 " buffer and airline config
 nnoremap <leader>b[ :bprevious<CR>
@@ -380,7 +306,7 @@ local on_attach = function(client, bufnr)
   buf_set_keymap('n', '<space>K', '<cmd>lua vim.lsp.buf.signature_help()<CR>', opts)
   buf_set_keymap('n', '<space>wa', '<cmd>lua vim.lsp.buf.add_workspace_folder()<CR>', opts)
   buf_set_keymap('n', '<space>wr', '<cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>', opts)
-  buf_set_keymap('n', '<space>wl', '<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>', opts)
+  buf_set_keymap('n', '<space>wf', '<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>', opts)
   buf_set_keymap('n', '<space>tD', '<cmd>lua vim.lsp.buf.type_definition()<CR>', opts)
   buf_set_keymap('n', '<space>rn', '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
   buf_set_keymap('n', '<space>ca', '<cmd>lua vim.lsp.buf.code_action()<CR>', opts)
@@ -402,5 +328,14 @@ for _, lsp in ipairs(servers) do
     }
   }
 end
+
+require'nvim-treesitter.configs'.setup {
+  ensure_installed = "all",
+  ignore_install = {"javascript"},
+  highlight = {
+    enable = true,
+    additional_vim_regex_highlighting = false,
+  },
+}
 
 EOF
