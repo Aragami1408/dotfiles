@@ -1,3 +1,4 @@
+#
 # If you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
@@ -228,20 +229,28 @@ alias bs="broot --sizes"
 alias neofetch="neofetch --ascii ~/.nfdp"
 alias doom="~/.emacs.d/bin/doom"
 
-export WINEPREFIX="$HOME/.wine_games"
-export WINEARCH=win32
+export WINEPREFIX="$HOME/.wine"
+export WINEARCH=win64
+export WINEDEBUG=-all
+
 export XDG_CONFIG_HOME="$HOME/.config"
-export EDITOR="emacsclient -t -a ''"
-export VISUAL="emacsclient -c -a emacs"
+export EDITOR="nvim"
+export VISUAL="nvim"
 export PAGER="most"
 
 if [ "$TMUX" = "" ]; then tmux; fi
 [ -f "/home/higanbana/.ghcup/env" ] && source "/home/higanbana/.ghcup/env" # ghcup-env
 
-# Toi can go Tieng Viet 
 if [[ $(pgrep ibus-daemon) ]]; then
     echo "ibus-daemon already here."
 else 
-    ibus-daemon &
+    ibus-daemon -drxR &
 fi
 
+export GTK_IM_MODULE=ibus
+export QT_IM_MODULE=ibus
+export XMODIFIERS=@im=ibus
+export QT4_IM_MODULE=xim
+export CLUTTER_IM_MODULE=ibus
+export GLFW_IM_MODULE=ibus
+export XMODIFERS=@im=ibus

@@ -211,7 +211,7 @@ c.tabs.position = 'bottom'
 # the search engine name to the search term, e.g. `:open google
 # qutebrowser`.
 # Type: Dict
-c.url.searchengines = {'DEFAULT': 'https://duckduckgo.com/?q={}', 'am': 'https://www.amazon.com/s?k={}', 'aw': 'https://wiki.archlinux.org/?search={}', 'goog': 'https://www.google.com/search?q={}', 'hoog': 'https://hoogle.haskell.org/?hoogle={}', 're': 'https://www.reddit.com/r/{}', 'ub': 'https://www.urbandictionary.com/define.php?term={}', 'wiki': 'https://en.wikipedia.org/wiki/{}', 'yt': 'https://www.youtube.com/results?search_query={}', '4ch': 'https://www.4chan.org/{}', '2huw': "https://en.touhouwiki.net/index.php?search={}", 'gh': "https://www.github.com/search?q={}"}
+c.url.searchengines = {'DEFAULT': 'https://duckduckgo.com/?q={}', 'am': 'https://www.amazon.com/s?k={}', 'aw': 'https://wiki.archlinux.org/?search={}', 'goog': 'https://www.google.com/search?q={}', 'hoog': 'https://hoogle.haskell.org/?hoogle={}', 're': 'https://www.reddit.com/r/{}', 'ub': 'https://www.urbandictionary.com/define.php?term={}', 'wiki': 'https://en.wikipedia.org/wiki/{}', 'yt': 'https://www.youtube.com/results?search_query={}', '4ch': 'https://www.4chan.org/{}', '2huw': "https://en.touhouwiki.net/index.php?search={}", 'gh': "https://www.github.com/search?q={}", 'ig': "https://wiki.installgentoo.com/index.php?search={}"}
 
 
 # Text color of the completion widget. May be a single color to use for
@@ -377,10 +377,38 @@ c.fonts.statusbar = '11pt "Inconsolata"'
 #config.bind('O', 'spawn --userscript dmenu-open --tab')
 
 # Bindings for normal mode
-config.bind('M', 'hint links spawn mpv {hint-url}')
-config.bind('Z', 'hint links spawn st -e youtube-dl {hint-url}')
-config.bind('t', 'set-cmd-text -s :open -t')
-config.bind('xb', 'config-cycle statusbar.show always never')
-config.bind('xt', 'config-cycle tabs.show always never')
-config.bind('xx', 'config-cycle statusbar.show always never;; config-cycle tabs.show always never')
+config.bind(',m', 'spawn mpv {url}')
+config.bind(',M', 'hint links spawn mpv {hint-url}')
+config.bind(',Z', 'hint links spawn st -e youtube-dl {hint-url}')
+config.bind(',t', 'set-cmd-text -s :open -t')
+config.bind(',xb', 'config-cycle statusbar.show always never')
+config.bind(',xt', 'config-cycle tabs.show always never')
+config.bind(',xx', 'config-cycle statusbar.show always never;; config-cycle tabs.show always never')
+
+# Some other stuffs
+c.content.pdfjs = True
+
+c.editor.command = ["alacritty", "-e", "nvim", "{file}", "-c", "normal {line}G{column0 }l"]
+
+c.content.blocking.method = 'adblock'
+c.content.blocking.adblock.lists = [
+        "https://easylist.to/easylist/easylist.txt",
+        "https://easylist.to/easylist/easyprivacy.txt",
+        "https://easylist.to/easylist/fanboy-social.txt",
+        "https://secure.fanboy.co.nz/fanboy-annoyance.txt",
+        "https://easylist-downloads.adblockplus.org/abp-filters-anti-cv.txt",
+        #"https://gitlab.com/curben/urlhaus-filter/-/raw/master/urlhaus-filter.txt",
+        "https://pgl.yoyo.org/adservers/serverlist.php?showintro=0;hostformat=hosts",
+        "https://github.com/uBlockOrigin/uAssets/raw/master/filters/legacy.txt",
+        "https://github.com/uBlockOrigin/uAssets/raw/master/filters/filters.txt",
+        "https://github.com/uBlockOrigin/uAssets/raw/master/filters/filters-2020.txt",
+        "https://github.com/uBlockOrigin/uAssets/raw/master/filters/filters-2021.txt",
+        "https://github.com/uBlockOrigin/uAssets/raw/master/filters/badware.txt",
+        "https://github.com/uBlockOrigin/uAssets/raw/master/filters/privacy.txt",
+        "https://github.com/uBlockOrigin/uAssets/raw/master/filters/badlists.txt",
+        "https://github.com/uBlockOrigin/uAssets/raw/master/filters/annoyances.txt",
+        "https://github.com/uBlockOrigin/uAssets/raw/master/filters/resource-abuse.txt",
+        "https://www.i-dont-care-about-cookies.eu/abp/",
+        "https://secure.fanboy.co.nz/fanboy-cookiemonster.txt",
+        "https://github.com/uBlockOrigin/uAssets/raw/master/filters/unbreak.txt"]
 
