@@ -229,6 +229,7 @@ alias bs="broot --sizes"
 alias neofetch="neofetch --ascii ~/.nfdp"
 alias doom="~/.emacs.d/bin/doom"
 
+
 export WINEPREFIX="$HOME/.wine"
 export WINEARCH=win64
 export WINEDEBUG=-all
@@ -254,3 +255,6 @@ export QT4_IM_MODULE=xim
 export CLUTTER_IM_MODULE=ibus
 export GLFW_IM_MODULE=ibus
 export XMODIFERS=@im=ibus
+
+export MPD_HOST="localhost"
+export MPD_PORT="6601"
