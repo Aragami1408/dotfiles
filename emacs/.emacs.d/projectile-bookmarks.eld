@@ -1,0 +1,1 @@
+("~/dotfiles/" "~/git_project/crust_of_rust/" "~/git_project/liblcthw/" "~/git_project/dwm/" "~/.emacs.d/elpa/jedi-core-20210503.1315/")

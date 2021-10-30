@@ -1,0 +1,21 @@
+
+;; ----- smex-history -----
+(
+ eval-buffer
+ term
+ line-number-mode
+ calendar
+ rainbow-mode
+ customize-themes
+ cd
+)
+
+;; ----- smex-data -----
+(
+ (eval-buffer . 6)
+ (customize-themes . 1)
+ (rainbow-mode . 1)
+ (calendar . 1)
+ (term . 2)
+ (line-number-mode . 2)
+)
