@@ -46,11 +46,6 @@ Since we are going to use emacs as our window manager, it would be nice to have 
 *** From the package manager:
 - =sudo=, properly configured for your user.
 
-** EMMS
-*** From the package manager:
-- =mpd=, since we are going to be using EMMS for music playback, I recommend setting up a working mpd server.
-- =mpv=, for video playback.
-
 ** Programming
 *** Package manager
 - =clang=, for c/c++ completion.
