@@ -19,12 +19,6 @@
 
 (when window-system (add-hook 'prog-mode-hook 'hl-line-mode))
 
-(when window-system
-      (use-package pretty-mode
-      :ensure t
-      :config
-      (global-pretty-mode t)))
-
 (setq make-backup-files nil)
 (setq auto-save-default nil)
 
