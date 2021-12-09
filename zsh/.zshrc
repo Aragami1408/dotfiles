@@ -92,19 +92,41 @@ fi
 # Compilation flags
 # export ARCHFLAGS="-arch x86_64"
 
-# Set personal aliases, overriding those provided by oh-my-zsh libs,
-# plugins, and themes. Aliases can be placed here, though oh-my-zsh
-# users are encouraged to define aliases within the ZSH_CUSTOM folder.
-# For a full list of active aliases, run `alias`.
-#
-# Example aliases
+export WINEPREFIX="$HOME/.wine"
+
+export WINEARCH=win64
+export WINEDEBUG=-all
+
+export XDG_CONFIG_HOME="$HOME/.config"
+export EDITOR="nvim"
+export VISUAL="nvim"
+export PAGER="most"
+
+export GTK_IM_MODULE=ibus
+export QT_IM_MODULE=ibus
+export XMODIFIERS=@im=ibus
+export QT4_IM_MODULE=xim
+export CLUTTER_IM_MODULE=ibus
+export GLFW_IM_MODULE=ibus
+export XMODIFERS=@im=ibus
+
+export MPD_HOST="localhost"
+export MPD_PORT="6601"
+
+export PREFIX="$HOME/opt/cross"
+export TARGET=i686-elf
+
 
 if [ -d "$HOME/.bin" ] ;
     then PATH="$HOME/.bin:$PATH"
 fi
 
 if [ -d "$HOME/.local/bin" ] ;
-  then PATH="$HOME/.local/bin:$PATH"
+    then PATH="$HOME/.local/bin:$PATH"
+fi
+
+if [ -d "$PREFIX/bin" ] ;
+    then PATH="$PREFIX/bin:$PATH"
 fi
 
 case ${TERM} in
@@ -151,10 +173,6 @@ function extract {
       fi
     done
 fi
-}
-
-groff_to_pdf() {
-    groff -ms $1.ms -T pdf >> $1.pdf
 }
 
 # Reload Shell
@@ -210,51 +228,19 @@ alias gsync="git checkout master && git fetch upstream && git rebase upstream/ma
 
 alias clangd-compile-commands="cmake -DCMAKE_EXPORT_COMPILE_COMMANDS=1"
 
-alias yta-aac="youtube-dl --extract-audio --audio-format aac "
-alias yta-best="youtube-dl --extract-audio --audio-format best "
-alias yta-flac="youtube-dl --extract-audio --audio-format flac "
-alias yta-m4a="youtube-dl --extract-audio --audio-format m4a "
-alias yta-mp3="youtube-dl --extract-audio --audio-format mp3 "
-alias yta-opus="youtube-dl --extract-audio --audio-format opus "
-alias yta-vorbis="youtube-dl --extract-audio --audio-format vorbis "
-alias yta-wav="youtube-dl --extract-audio --audio-format wav "
-alias ytv-best="youtube-dl -f bestvideo+bestaudio "
-alias yta-aupl='youtube-dl -f "bestaudio" --continue --no-overwrites --ignore-errors --extract-audio --audio-format opus -o "%(title)s.%(ext)s"'
+alias yta-aac="yt-dlp --extract-audio --audio-format aac "
+alias yta-best="yt-dlp --extract-audio --audio-format best "
+alias yta-flac="yt-dlp --extract-audio --audio-format flac "
+alias yta-m4a="yt-dlp --extract-audio --audio-format m4a "
+alias yta-mp3="yt-dlp --extract-audio --audio-format mp3 "
+alias yta-opus="yt-dlp --extract-audio --audio-format opus "
+alias yta-vorbis="yt-dlp --extract-audio --audio-format vorbis "
+alias yta-wav="yt-dlp --extract-audio --audio-format wav "
+alias ytv-best="yt-dlp -f bestvideo+bestaudio "
+alias yta-aupl='yt-dlp -f "bestaudio" --continue --no-overwrites --ignore-errors --extract-audio --audio-format opus -o "%(title)s.%(ext)s"'
 
 alias docker="sudo docker"
 
-alias br="broot -dhp"
-alias bs="broot --sizes"
 
 alias neofetch="neofetch --ascii ~/.nfdp"
 alias doom="~/.emacs.d/bin/doom"
-
-
-export WINEPREFIX="$HOME/.wine"
-export WINEARCH=win64
-export WINEDEBUG=-all
-
-export XDG_CONFIG_HOME="$HOME/.config"
-export EDITOR="nvim"
-export VISUAL="nvim"
-export PAGER="most"
-
-if [ "$TMUX" = "" ]; then tmux; fi
-[ -f "/home/higanbana/.ghcup/env" ] && source "/home/higanbana/.ghcup/env" # ghcup-env
-
-if [[ $(pgrep ibus-daemon) ]]; then
-    echo "ibus-daemon already here."
-else 
-    ibus-daemon -drxR &
-fi
-
-export GTK_IM_MODULE=ibus
-export QT_IM_MODULE=ibus
-export XMODIFIERS=@im=ibus
-export QT4_IM_MODULE=xim
-export CLUTTER_IM_MODULE=ibus
-export GLFW_IM_MODULE=ibus
-export XMODIFERS=@im=ibus
-
-export MPD_HOST="localhost"
-export MPD_PORT="6601"

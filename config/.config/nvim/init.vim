@@ -27,7 +27,7 @@ colorscheme gruvbox
 set background=dark
 set clipboard=unnamedplus
 set nu rnu
-augroup numbertoggle"
+augroup numbertoggle
     autocmd!
     autocmd BufEnter,FocusGained,InsertLeave * set norelativenumber
     autocmd BufLeave,FocusLost,InsertEnter * set relativenumber
@@ -98,9 +98,9 @@ function! FloatTerm(...)
         \ 'height': height,
         \ 'style': 'minimal'
         \ }
-  let top = "+" . repeat("─", width + 2) . "+"
-  let mid = "│" . repeat(" ", width + 2) . "│"
-  let bot = "+" . repeat("─", width + 2) . "+"
+  let top = "+" . repeat("~", width + 2) . "+"
+  let mid = "+" . repeat(" ", width + 2) . "+"
+  let bot = "+" . repeat("*", width + 2) . "+"
   let lines = [top] + repeat([mid], height) + [bot]
   let bbuf = nvim_create_buf(v:false, v:true)
   call nvim_buf_set_lines(bbuf, 0, -1, v:true, lines)
@@ -135,7 +135,6 @@ nnoremap h b
 " Shifting selected line(s)
 vmap <Tab> >
 vmap <S-Tab> <
-
 
 " Working with pane
 nnoremap <leader>wv :vsplit<CR>
@@ -206,3 +205,4 @@ nnoremap <leader>fh :Tags<cr>
 xmap ga <Plug>(EasyAlign)
 
 nmap ga <Plug>(EasyAlign)
+

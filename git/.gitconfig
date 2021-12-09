@@ -1,8 +1,8 @@
 [user]
-	name = Aragami1408
-	email = vucaominh1408@gmail.com
+	name = Higanbana
+	email = higanbana@cock.li
 [core]
-	editor = emacs
+	editor = nvim
 	pager = most
 	autocrlf = input
 [mergo]
