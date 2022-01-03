@@ -99,7 +99,7 @@ function! FloatTerm(...)
         \ 'style': 'minimal'
         \ }
   let top = "+" . repeat("~", width + 2) . "+"
-  let mid = "+" . repeat(" ", width + 2) . "+"
+  let mid = "#" . repeat(" ", width + 2) . "#"
   let bot = "+" . repeat("*", width + 2) . "+"
   let lines = [top] + repeat([mid], height) + [bot]
   let bbuf = nvim_create_buf(v:false, v:true)
@@ -151,6 +151,7 @@ nnoremap <leader>tg :call FloatTerm('"lazygit"')<CR>
 nnoremap <leader>tn :call FloatTerm('"node"')<CR>
 nnoremap <leader>tp :call FloatTerm('"python"')<CR>
 nnoremap <leader>th :call FloatTerm('"ghci"')<CR>
+nnoremap <leader>tl :call FloatTerm('"sbcl"')<CR>
 
 nnoremap <leader>p "+p
 vnoremap <leader>p "+p
@@ -203,6 +204,4 @@ nnoremap <leader>fh :Tags<cr>
 
 " easy align
 xmap ga <Plug>(EasyAlign)
-
 nmap ga <Plug>(EasyAlign)
-
