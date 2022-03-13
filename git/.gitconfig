@@ -1,8 +1,8 @@
 [user]
-	name = Higanbana
+	name = vcminh
 	email = higanbana@cock.li
 [core]
-	editor = nvim
+	editor = nano
 	pager = most
 	autocrlf = input
 [mergo]
