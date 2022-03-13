@@ -116,6 +116,9 @@ export MPD_PORT="6601"
 export PREFIX="$HOME/opt/cross"
 export TARGET=i686-elf
 
+# WSL only
+export DISPLAY=localhost:0
+
 
 if [ -d "$HOME/.bin" ] ;
     then PATH="$HOME/.bin:$PATH"

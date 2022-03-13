@@ -1,25 +1,27 @@
 call plug#begin('~/.local/share/nvim/plugged')
-Plug 'junegunn/vim-easy-align'
-Plug 'scrooloose/nerdtree'
-Plug 'morhetz/gruvbox'
-Plug 'vim-airline/vim-airline'
-Plug 'vim-airline/vim-airline-themes'
-Plug 'terryma/vim-multiple-cursors'
+" productivity
 Plug 'preservim/nerdcommenter'
 Plug 'easymotion/vim-easymotion'
 Plug 'Xuyuanp/nerdtree-git-plugin'
-Plug 'junegunn/vim-github-dashboard'
-Plug 'tpope/vim-fugitive'
-Plug 'junegunn/gv.vim'
-Plug 'szw/vim-maximizer'
-if has('nvim') || has('patch-8.0.902')
-  Plug 'mhinz/vim-signify'
-else
-  Plug 'mhinz/vim-signify', { 'branch': 'legacy' }
-endif
-Plug 'mhinz/vim-startify'
+Plug 'terryma/vim-multiple-cursors'
+Plug 'junegunn/vim-easy-align'
+Plug 'scrooloose/nerdtree'
+
+" colorscheme
+Plug 'morhetz/gruvbox'
+Plug 'chriskempson/base16-vim'
+
+" airline bar
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
+
+" fzf
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
+
+" lsp
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 call plug#end()
 
 " Basic config section
@@ -28,9 +30,9 @@ set background=dark
 set clipboard=unnamedplus
 set nu rnu
 augroup numbertoggle
-    autocmd!
-    autocmd BufEnter,FocusGained,InsertLeave * set norelativenumber
-    autocmd BufLeave,FocusLost,InsertEnter * set relativenumber
+	autocmd!
+	autocmd BufEnter,FocusGained,InsertLeave * set norelativenumber
+	autocmd BufLeave,FocusLost,InsertEnter * set relativenumber
 augroup end
 set autoread
 set autowrite
@@ -43,7 +45,6 @@ set nobackup
 set nowb
 set noswapfile
 set backupdir=~/tmp,/tmp
-set backupcopy=yes
 set backupskip=/tmp/*,$TMPDIR/*,$TMP/*,$TEMP/*
 set directory=/tmp
 set encoding=utf-8
@@ -52,9 +53,8 @@ set foldenable
 set foldmethod=marker
 set cursorline
 set cmdheight=2
-set updatetime=100
+set updatetime=300
 set shortmess+=c
-set tabstop=8 softtabstop=0 expandtab shiftwidth=4 smarttab
 set list
 set listchars=tab:>·,trail:~,extends:>,precedes:<
 set backspace=eol,start,indent
@@ -64,6 +64,7 @@ set undodir=$HOME/.config/nvim/undo
 set undolevels=1000
 set undoreload=10000
 set updatetime=300
+set tabstop=4 softtabstop=0 noexpandtab shiftwidth=4
 
 command! -nargs=0 VimConfig :e ~/.config/nvim/init.vim
 command! -nargs=0 TermConfig :e ~/.config/alacritty/alacritty.yml
@@ -75,50 +76,50 @@ set splitright
 let s:float_term_border_win = 0
 let s:float_term_win = 0
 function! FloatTerm(...)
-  " Configuration
-  let height = float2nr((&lines - 2) * 0.8)
-  let row = float2nr((&lines - height) / 2)
-  let width = float2nr(&columns * 0.8)
-  let col = float2nr((&columns - width) / 2)
-  " Border Window
-  let border_opts = {
-        \ 'relative': 'editor',
-        \ 'row': row - 1,
-        \ 'col': col - 2,
-        \ 'width': width + 4,
-        \ 'height': height + 2,
-        \ 'style': 'minimal'
-        \ }
-  " Terminal Window
-  let opts = {
-        \ 'relative': 'editor',
-        \ 'row': row,
-        \ 'col': col,
-        \ 'width': width,
-        \ 'height': height,
-        \ 'style': 'minimal'
-        \ }
-  let top = "+" . repeat("~", width + 2) . "+"
-  let mid = "#" . repeat(" ", width + 2) . "#"
-  let bot = "+" . repeat("*", width + 2) . "+"
-  let lines = [top] + repeat([mid], height) + [bot]
-  let bbuf = nvim_create_buf(v:false, v:true)
-  call nvim_buf_set_lines(bbuf, 0, -1, v:true, lines)
-  let s:float_term_border_win = nvim_open_win(bbuf, v:true, border_opts)
-  let buf = nvim_create_buf(v:false, v:true)
-  let s:float_term_win = nvim_open_win(buf, v:true, opts)
-  " Styling
-  hi FloatWinBorder guifg=#87bb7c
-  call setwinvar(s:float_term_border_win, '&winhl', 'Normal:FloatWinBorder')
-  call setwinvar(s:float_term_win, '&winhl', 'Normal:Normal')
-  if a:0 == 0
-    terminal
-  else
-    call termopen(a:1)
-  endif
-  startinsert
-  " Close border window when terminal window close
-  autocmd TermClose * ++once :bd! | call nvim_win_close(s:float_term_border_win, v:true)
+	" Configuration
+	let height = float2nr((&lines - 2) * 0.8)
+	let row = float2nr((&lines - height) / 2)
+	let width = float2nr(&columns * 0.8)
+	let col = float2nr((&columns - width) / 2)
+	" Border Window
+	let border_opts = {
+				\ 'relative': 'editor',
+				\ 'row': row - 1,
+				\ 'col': col - 2,
+				\ 'width': width + 4,
+				\ 'height': height + 2,
+				\ 'style': 'minimal'
+				\ }
+	" Terminal Window
+	let opts = {
+				\ 'relative': 'editor',
+				\ 'row': row,
+				\ 'col': col,
+				\ 'width': width,
+				\ 'height': height,
+				\ 'style': 'minimal'
+				\ }
+	let top = "+" . repeat("~", width + 2) . "+"
+	let mid = "#" . repeat(" ", width + 2) . "#"
+	let bot = "+" . repeat("*", width + 2) . "+"
+	let lines = [top] + repeat([mid], height) + [bot]
+	let bbuf = nvim_create_buf(v:false, v:true)
+	call nvim_buf_set_lines(bbuf, 0, -1, v:true, lines)
+	let s:float_term_border_win = nvim_open_win(bbuf, v:true, border_opts)
+	let buf = nvim_create_buf(v:false, v:true)
+	let s:float_term_win = nvim_open_win(buf, v:true, opts)
+	" Styling
+	hi FloatWinBorder guifg=#87bb7c
+	call setwinvar(s:float_term_border_win, '&winhl', 'Normal:FloatWinBorder')
+	call setwinvar(s:float_term_win, '&winhl', 'Normal:Normal')
+	if a:0 == 0
+		terminal
+	else
+		call termopen(a:1)
+	endif
+	startinsert
+	" Close border window when terminal window close
+	autocmd TermClose * ++once :bd! | call nvim_win_close(s:float_term_border_win, v:true)
 endfunction
 
 let g:mapleader = " "
@@ -127,10 +128,6 @@ nmap <leader>w :w!<cr>
 
 map <silent> <leader><cr> :noh<cr>
 
-nnoremap L l
-nnoremap H h
-nnoremap l w
-nnoremap h b
 
 " Shifting selected line(s)
 vmap <Tab> >
@@ -144,6 +141,9 @@ nnoremap <leader>wl :wincmd l<CR>
 nnoremap <leader>wk :wincmd k<CR>
 nnoremap <leader>wj :wincmd j<CR>
 nnoremap <leader>w= :wincmd =<CR>
+
+nnoremap <silent> <leader>+ :exe "vertical resize " . (winheight(0) * 3/2)<CR>
+nnoremap <silent> <leader>- :exe "vertical resize " . (winheight(0) * 2/3)<CR>
 
 " Floating terminal (useful for compiling stuffs on-site)
 nnoremap <leader>tt :call FloatTerm()<CR>
@@ -205,3 +205,97 @@ nnoremap <leader>fh :Tags<cr>
 " easy align
 xmap ga <Plug>(EasyAlign)
 nmap ga <Plug>(EasyAlign)
+
+" lsp
+if has("nvim-0.5.0") || has("patch-8.1.1564")
+  set signcolumn=number
+else
+  set signcolumn=yes
+endif
+
+inoremap <silent><expr> <TAB>
+      \ pumvisible() ? "\<C-n>" :
+      \ <SID>check_back_space() ? "\<TAB>" :
+      \ coc#refresh()
+inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+
+function! s:check_back_space() abort
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~# '\s'
+endfunction
+
+if has('nvim')
+  inoremap <silent><expr> <c-space> coc#refresh()
+else
+  inoremap <silent><expr> <c-@> coc#refresh()
+endif
+
+inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm()
+                              \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
+
+nmap <silent> <leader>[g <Plug>(coc-diagnostic-prev)
+nmap <silent> <leader>]g <Plug>(coc-diagnostic-next)
+
+nmap <silent> <leader>gd <Plug>(coc-definition)
+nmap <silent> <leader>gy <Plug>(coc-type-definition)
+nmap <silent> <leader>gi <Plug>(coc-implementation)
+nmap <silent> <leader>gr <Plug>(coc-references)
+
+nnoremap <silent> <leader>K :call <SID>show_documentation()<CR>
+
+function! s:show_documentation()
+  if (index(['vim','help'], &filetype) >= 0)
+    execute 'h '.expand('<cword>')
+  elseif (coc#rpc#ready())
+    call CocActionAsync('doHover')
+  else
+    execute '!' . &keywordprg . " " . expand('<cword>')
+  endif
+endfunction
+
+autocmd CursorHold * silent call CocActionAsync('highlight')
+
+nmap <leader>rn <Plug>(coc-rename)
+
+xmap <leader>f  <Plug>(coc-format-selected)
+nmap <leader>f  <Plug>(coc-format-selected)
+
+augroup mygroup
+  autocmd!
+  autocmd FileType typescript,json setl formatexpr=CocAction('formatSelected')
+  autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
+augroup end
+
+xmap <leader>a  <Plug>(coc-codeaction-selected)
+nmap <leader>a  <Plug>(coc-codeaction-selected)
+nmap <leader>ac  <Plug>(coc-codeaction)
+nmap <leader>qf  <Plug>(coc-fix-current)
+nmap <leader>cl  <Plug>(coc-codelens-action)
+
+xmap if <Plug>(coc-funcobj-i)
+omap if <Plug>(coc-funcobj-i)
+xmap af <Plug>(coc-funcobj-a)
+omap af <Plug>(coc-funcobj-a)
+xmap ic <Plug>(coc-classobj-i)
+omap ic <Plug>(coc-classobj-i)
+xmap ac <Plug>(coc-classobj-a)
+omap ac <Plug>(coc-classobj-a)
+
+if has('nvim-0.4.0') || has('patch-8.2.0750')
+  nnoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? coc#float#scroll(1) : "\<C-f>"
+  nnoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? coc#float#scroll(0) : "\<C-b>"
+  inoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(1)\<cr>" : "\<Right>"
+  inoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(0)\<cr>" : "\<Left>"
+  vnoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? coc#float#scroll(1) : "\<C-f>"
+  vnoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? coc#float#scroll(0) : "\<C-b>"
+endif
+
+nmap <silent> <C-s> <Plug>(coc-range-select)
+xmap <silent> <C-s> <Plug>(coc-range-select)
+
+command! -nargs=0 Format :call CocActionAsync('format')
+command! -nargs=? Fold :call     CocAction('fold', <f-args>)
+command! -nargs=0 OR   :call     CocActionAsync('runCommand', 'editor.action.organizeImport')
+
+set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
+

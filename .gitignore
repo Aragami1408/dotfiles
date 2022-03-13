@@ -1,5 +1,6 @@
 config/.config/nvim/undo
 config/.config/lazygit/state.yml
+config/.config/coc/
 bin/
 
 emacs/.emacs.d/elpa/
@@ -8,3 +9,5 @@ emacs/.emacs.d/recentf
 emacs/.emacs.d/srecode-map.el
 
 bash/.bash_history
+
+
