@@ -1,9 +1,8 @@
 [user]
-	name = vcminh
+	name = higanbana
 	email = higanbana@cock.li
 [core]
 	editor = nano
-	pager = most
 	autocrlf = input
 [mergo]
 	tool = kdiff3

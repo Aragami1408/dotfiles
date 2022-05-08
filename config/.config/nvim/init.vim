@@ -1,27 +1,28 @@
 call plug#begin('~/.local/share/nvim/plugged')
-" productivity
-Plug 'preservim/nerdcommenter'
-Plug 'easymotion/vim-easymotion'
-Plug 'Xuyuanp/nerdtree-git-plugin'
-Plug 'terryma/vim-multiple-cursors'
-Plug 'junegunn/vim-easy-align'
-Plug 'scrooloose/nerdtree'
+	" productivity
+	Plug 'preservim/nerdcommenter'
+	Plug 'easymotion/vim-easymotion'
+	Plug 'Xuyuanp/nerdtree-git-plugin'
+	Plug 'terryma/vim-multiple-cursors'
+	Plug 'junegunn/vim-easy-align'
+	Plug 'scrooloose/nerdtree'
 
-" colorscheme
-Plug 'morhetz/gruvbox'
-Plug 'chriskempson/base16-vim'
+	" colorscheme
+	Plug 'morhetz/gruvbox'
+	Plug 'phanviet/vim-monokai-pro'
 
-" airline bar
-Plug 'vim-airline/vim-airline'
-Plug 'vim-airline/vim-airline-themes'
+	" airline bar
+	Plug 'vim-airline/vim-airline'
+	Plug 'vim-airline/vim-airline-themes'
 
-" fzf
-Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
-Plug 'junegunn/fzf.vim'
+	" fzf
+	Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+	Plug 'junegunn/fzf.vim'
 
-" lsp
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
-Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+	" lsp
+	Plug 'neoclide/coc.nvim', {'branch': 'release'}
+	Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+
 call plug#end()
 
 " Basic config section
@@ -65,6 +66,7 @@ set undolevels=1000
 set undoreload=10000
 set updatetime=300
 set tabstop=4 softtabstop=0 noexpandtab shiftwidth=4
+set termguicolors
 
 command! -nargs=0 VimConfig :e ~/.config/nvim/init.vim
 command! -nargs=0 TermConfig :e ~/.config/alacritty/alacritty.yml
@@ -129,6 +131,8 @@ nmap <leader>w :w!<cr>
 map <silent> <leader><cr> :noh<cr>
 
 
+
+
 " Shifting selected line(s)
 vmap <Tab> >
 vmap <S-Tab> <
@@ -142,8 +146,6 @@ nnoremap <leader>wk :wincmd k<CR>
 nnoremap <leader>wj :wincmd j<CR>
 nnoremap <leader>w= :wincmd =<CR>
 
-nnoremap <silent> <leader>+ :exe "vertical resize " . (winheight(0) * 3/2)<CR>
-nnoremap <silent> <leader>- :exe "vertical resize " . (winheight(0) * 2/3)<CR>
 
 " Floating terminal (useful for compiling stuffs on-site)
 nnoremap <leader>tt :call FloatTerm()<CR>
@@ -195,6 +197,7 @@ let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#left_sep = ' '
 let g:airline#extensions#tabline#left_alt_sep = '|'
 let g:airline#extensions#tabline#formatter = 'unique_tail_improved'
+let g:airline_theme='owo'
 
 " fzf
 nnoremap <leader>ff :Files<cr>
@@ -266,12 +269,6 @@ augroup mygroup
   autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
 augroup end
 
-xmap <leader>a  <Plug>(coc-codeaction-selected)
-nmap <leader>a  <Plug>(coc-codeaction-selected)
-nmap <leader>ac  <Plug>(coc-codeaction)
-nmap <leader>qf  <Plug>(coc-fix-current)
-nmap <leader>cl  <Plug>(coc-codelens-action)
-
 xmap if <Plug>(coc-funcobj-i)
 omap if <Plug>(coc-funcobj-i)
 xmap af <Plug>(coc-funcobj-a)
@@ -298,4 +295,3 @@ command! -nargs=? Fold :call     CocAction('fold', <f-args>)
 command! -nargs=0 OR   :call     CocActionAsync('runCommand', 'editor.action.organizeImport')
 
 set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
-
