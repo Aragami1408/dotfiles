@@ -5,6 +5,7 @@ window:
     x: 5
     y: 5
   dynamic_padding: false
+  opacity: 0.5
   decorations: none
   startup_mode: Maximized
   class:
@@ -15,18 +16,18 @@ scrolling:
   history: 5000
 font:
   normal:
-    family: BigBlue Terminal Plus
+    family: Unifont-JP
     style: Regular
   bold:
-    family: BigBlue Terminal Plus
+    family: Unifont-JP
     style: Bold
   italic:
-    family: BigBlue Terminal Plus
+    family: Unifont-JP
     style: Italic
   bold_italic:
-    family: BigBlue Terminal Plus
+    family: Unifont-JP
     style: Bold Italic
-  size: 10
+  size: 12
   offset:
     x: 0
     y: 1
@@ -70,12 +71,6 @@ key_bindings:
   - key: Equals
     mods: Control
     action: IncreaseFontSize
-  - key: Plus
-    mods: Control
-    action: IncreaseFontSize
-  - key: Minus
-    mods: Control
-    action: DecreaseFontSize
   - key: F11
     mods: None
     action: ToggleFullscreen
@@ -108,6 +103,3 @@ key_bindings:
     action: ScrollToBottom
     mode: ~Alt
 
-cursor:
-    style:
-        shape: Beam

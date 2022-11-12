@@ -1,4 +1,4 @@
-call plug#begin('~/.local/share/nvim/plugged')
+call plug#begin()
 	" productivity
 	Plug 'preservim/nerdcommenter'
 	Plug 'easymotion/vim-easymotion'
@@ -22,6 +22,9 @@ call plug#begin('~/.local/share/nvim/plugged')
 	" lsp
 	Plug 'neoclide/coc.nvim', {'branch': 'release'}
 	Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+
+	" latex
+	Plug 'lervag/vimtex'
 
 call plug#end()
 
@@ -216,16 +219,6 @@ else
   set signcolumn=yes
 endif
 
-inoremap <silent><expr> <TAB>
-      \ pumvisible() ? "\<C-n>" :
-      \ <SID>check_back_space() ? "\<TAB>" :
-      \ coc#refresh()
-inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
-
-function! s:check_back_space() abort
-  let col = col('.') - 1
-  return !col || getline('.')[col - 1]  =~# '\s'
-endfunction
 
 if has('nvim')
   inoremap <silent><expr> <c-space> coc#refresh()
@@ -295,3 +288,10 @@ command! -nargs=? Fold :call     CocAction('fold', <f-args>)
 command! -nargs=0 OR   :call     CocActionAsync('runCommand', 'editor.action.organizeImport')
 
 set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
+
+" latex config
+let g:tex_flavor='latex'
+let g:vimtex_view_method='zathura'
+let g:vimtex_quickfix_mode=0
+set conceallevel=1
+let g:tex_conceal='abdmg'
