@@ -1,30 +1,21 @@
 call plug#begin()
-	" productivity
 	Plug 'preservim/nerdcommenter'
 	Plug 'easymotion/vim-easymotion'
 	Plug 'Xuyuanp/nerdtree-git-plugin'
 	Plug 'terryma/vim-multiple-cursors'
 	Plug 'junegunn/vim-easy-align'
 	Plug 'scrooloose/nerdtree'
-
-	" colorscheme
+	Plug 'jiangmiao/auto-pairs'
 	Plug 'morhetz/gruvbox'
 	Plug 'phanviet/vim-monokai-pro'
-
-	" airline bar
 	Plug 'vim-airline/vim-airline'
 	Plug 'vim-airline/vim-airline-themes'
-
-	" fzf
 	Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 	Plug 'junegunn/fzf.vim'
-
-	" lsp
 	Plug 'neoclide/coc.nvim', {'branch': 'release'}
 	Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
-
-	" latex
 	Plug 'lervag/vimtex'
+	Plug 'mattn/emmet-vim'
 
 call plug#end()
 
@@ -104,9 +95,9 @@ function! FloatTerm(...)
 				\ 'height': height,
 				\ 'style': 'minimal'
 				\ }
-	let top = "+" . repeat("~", width + 2) . "+"
-	let mid = "#" . repeat(" ", width + 2) . "#"
-	let bot = "+" . repeat("*", width + 2) . "+"
+	let top = "+" . repeat("-", width + 2) . "+"
+	let mid = "|" . repeat(" ", width + 2) . "|"
+	let bot = "+" . repeat("-", width + 2) . "+"
 	let lines = [top] + repeat([mid], height) + [bot]
 	let bbuf = nvim_create_buf(v:false, v:true)
 	call nvim_buf_set_lines(bbuf, 0, -1, v:true, lines)
@@ -133,9 +124,6 @@ nmap <leader>w :w!<cr>
 
 map <silent> <leader><cr> :noh<cr>
 
-
-
-
 " Shifting selected line(s)
 vmap <Tab> >
 vmap <S-Tab> <
@@ -154,9 +142,9 @@ nnoremap <leader>w= :wincmd =<CR>
 nnoremap <leader>tt :call FloatTerm()<CR>
 nnoremap <leader>tg :call FloatTerm('"lazygit"')<CR>
 nnoremap <leader>tn :call FloatTerm('"node"')<CR>
-nnoremap <leader>tp :call FloatTerm('"python"')<CR>
+nnoremap <leader>tp :call FloatTerm('"python3"')<CR>
 nnoremap <leader>th :call FloatTerm('"ghci"')<CR>
-nnoremap <leader>tl :call FloatTerm('"sbcl"')<CR>
+nnoremap <leader>tr :call FloatTerm('"irb"')<CR>
 
 nnoremap <leader>p "+p
 vnoremap <leader>p "+p

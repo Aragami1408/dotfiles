@@ -1,6 +1,14 @@
 lastupdatecheck: 0
 recentrepos:
 - /home/higanbana/dotfiles
-- /home/higanbana/git_project/liblcthw
-- /home/aragami1408/dotfiles
+- /home/higanbana/git_project/nesemu2
+- /home/higanbana/git_project/sucktris
+- /home/higanbana/git_project/kohi
+- /home/higanbana/git_project/chip8
+- /home/higanbana/git_project/sparky_engine
+- /home/higanbana/git_project/advent_of_code
+- /home/higanbana/git_project/tetris_rs
 startuppopupversion: 5
+customcommandshistory:
+- q
+hidecommandlog: false
