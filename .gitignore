@@ -1,4 +1,4 @@
-config/.config/nvim/undo
+config/.config/nvim/undo/
 config/.config/lazygit/state.yml
 config/.config/coc/
 bin/
@@ -10,4 +10,3 @@ emacs/.emacs.d/srecode-map.el
 
 bash/.bash_history
 .DS_Store
-
