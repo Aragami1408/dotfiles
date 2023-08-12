@@ -84,9 +84,9 @@ source $ZSH/oh-my-zsh.sh
 
 # Preferred editor for local and remote sessions
 if [[ -n $SSH_CONNECTION ]]; then
-  export EDITOR='vim'
+  export EDITOR='nano'
 else
-  export EDITOR='nvim'
+  export EDITOR='vim'
 fi
 
 # Compilation flags
@@ -98,9 +98,9 @@ export WINEARCH=win64
 export WINEDEBUG=-all
 
 export XDG_CONFIG_HOME="$HOME/.config"
-export EDITOR="nvim"
-export VISUAL="nvim"
-export PAGER="most"
+export EDITOR="vim"
+export VISUAL="vim"
+export PAGER="less"
 
 export GTK_IM_MODULE=ibus
 export QT_IM_MODULE=ibus
@@ -180,19 +180,19 @@ fi
 alias reload="source ~/.zshrc"
 
 # 
-alias zshconfig="nvim ~/.zshrc"
-alias vimconfig="nvim ~/.config/nvim/init.vim"
-alias termconfig="nvim ~/.config/alacritty/alacritty.yml"
-alias mpvconfig="nvim ~/.config/mpv/mpv.conf"
-alias wmconfig="nvim ~/.config/bspwm/bspwmrc"
-alias hkeyconfig="nvim ~/.config/sxhkd/sxhkdrc"
-alias compconfig="nvim ~/.config/picom/picom.conf"
-alias cocconfig="nvim ~/.config/nvim/coc-settings.json"
-alias roficonfig="nvim ~/.config/rofi/config.rasi"
-alias tmuxconfig="nvim ~/.config/tmux/tmux.conf"
-alias ncmpconfig="nvim ~/.config/ncmpcpp/config"
-alias barconfig="nvim ~/.config/polybar/config"
-alias displayconfig="nvim ~/.screenlayout/dual_monitor_1600_900.sh"
+alias zshconfig="vim ~/.zshrc"
+alias vimconfig="vim ~/.config/vim/init.vim"
+alias termconfig="vim ~/.config/alacritty/alacritty.yml"
+alias mpvconfig="vim ~/.config/mpv/mpv.conf"
+alias wmconfig="vim ~/.config/bspwm/bspwmrc"
+alias hkeyconfig="vim ~/.config/sxhkd/sxhkdrc"
+alias compconfig="vim ~/.config/picom/picom.conf"
+alias cocconfig="vim ~/.config/vim/coc-settings.json"
+alias roficonfig="vim ~/.config/rofi/config.rasi"
+alias tmuxconfig="vim ~/.config/tmux/tmux.conf"
+alias ncmpconfig="vim ~/.config/ncmpcpp/config"
+alias barconfig="vim ~/.config/polybar/config"
+alias displayconfig="vim ~/.screenlayout/dual_monitor_1600_900.sh"
 
 alias ls='exa -al --color=always --group-directories-first' # my preferred listing
 alias la='exa -a --color=always --group-directories-first'  # all files and dirs
