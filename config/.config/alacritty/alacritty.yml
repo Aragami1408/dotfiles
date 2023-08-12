@@ -12,6 +12,7 @@ window:
     instance: Alacritty
     general: Alacritty
   gtk_theme_variant: dark
+  opacity: 1.0
 scrolling:
   history: 5000
 font:
@@ -54,7 +55,6 @@ colors:
     magenta: "#d3869b"
     cyan: "#8ec07c"
     white: "#ebdbb2"
-background_opacity: 1
 key_bindings:
   - key: V
     mods: Control|Shift
