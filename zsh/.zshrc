@@ -3,7 +3,7 @@
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
 # Path to your oh-my-zsh installation.
-export ZSH="/home/$USER/.oh-my-zsh"
+export ZSH="/Users/higanbana/.oh-my-zsh"
 
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time oh-my-zsh is loaded, in which case,
@@ -71,7 +71,7 @@ HIST_STAMPS="dd/mm/yyyy"
 # Custom plugins may be added to $ZSH_CUSTOM/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git rust timer vi-mode systemd z bgnotify per-directory-history emacs git history command-not-found zsh-interactive-cd)
+plugins=(git timer vi-mode z zsh-syntax-highlighting bgnotify per-directory-history git history command-not-found zsh-interactive-cd)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -86,7 +86,7 @@ source $ZSH/oh-my-zsh.sh
 if [[ -n $SSH_CONNECTION ]]; then
   export EDITOR='nano'
 else
-  export EDITOR='vim'
+  export EDITOR='nvim'
 fi
 
 # Compilation flags
@@ -126,8 +126,16 @@ if [ -d "$HOME/.local/bin" ] ;
     then PATH="$HOME/.local/bin:$PATH"
 fi
 
+if [ -d "/Applications/XAMPP/xamppfiles" ] ;
+    then PATH="/Applications/XAMPP/xamppfiles:$PATH"
+fi
+
 if [ -d "$PREFIX/bin" ] ;
     then PATH="$PREFIX/bin:$PATH"
+fi
+
+if [ -d "/usr/local/opt/ruby/bin" ] ;
+    then PATH="/usr/local/opt/ruby/bin:$PATH"
 fi
 
 case ${TERM} in
@@ -180,19 +188,21 @@ fi
 alias reload="source ~/.zshrc"
 
 # 
-alias zshconfig="vim ~/.zshrc"
-alias vimconfig="vim ~/.config/vim/init.vim"
-alias termconfig="vim ~/.config/alacritty/alacritty.yml"
-alias mpvconfig="vim ~/.config/mpv/mpv.conf"
-alias wmconfig="vim ~/.config/bspwm/bspwmrc"
-alias hkeyconfig="vim ~/.config/sxhkd/sxhkdrc"
-alias compconfig="vim ~/.config/picom/picom.conf"
-alias cocconfig="vim ~/.config/vim/coc-settings.json"
-alias roficonfig="vim ~/.config/rofi/config.rasi"
-alias tmuxconfig="vim ~/.config/tmux/tmux.conf"
-alias ncmpconfig="vim ~/.config/ncmpcpp/config"
-alias barconfig="vim ~/.config/polybar/config"
-alias displayconfig="vim ~/.screenlayout/dual_monitor_1600_900.sh"
+alias zshconfig="nvim ~/.zshrc"
+alias vimconfig="nvim ~/.config/nvim/init.lua"
+alias termconfig="nvim ~/.config/alacritty/alacritty.yml"
+alias mpvconfig="nvim ~/.config/mpv/mpv.conf"
+alias wmconfig="nvim ~/.config/bspwm/bspwmrc"
+alias hkeyconfig="nvim ~/.config/sxhkd/sxhkdrc"
+alias compconfig="nvim ~/.config/picom/picom.conf"
+alias cocconfig="nvim ~/.config/vim/coc-settings.json"
+alias roficonfig="nvim ~/.config/rofi/config.rasi"
+alias tmuxconfig="nvim ~/.config/tmux/tmux.conf"
+alias ncmpconfig="nvim ~/.config/ncmpcpp/config"
+alias barconfig="nvim ~/.config/polybar/config"
+alias yabaiconfig="nvim ~/.config/yabai/yabairc"
+alias skhdconfig="nvim ~/.config/skhd/skhdrc"
+alias displayconfig="nvim ~/.screenlayout/dual_monitor_1600_900.sh"
 
 alias ls='exa -al --color=always --group-directories-first' # my preferred listing
 alias la='exa -a --color=always --group-directories-first'  # all files and dirs
@@ -200,6 +210,7 @@ alias ll='exa -l --color=always --group-directories-first'  # long format
 alias lt='exa -aT --color=always --group-directories-first' # tree listing
 alias l.='exa -a | egrep "^\."'
 
+# only for arch linux
 alias mirror="sudo reflector -f 30 -l 30 --number 10 --verbose --save /etc/pacman.d/mirrorlist"
 alias mirrord="sudo reflector --latest 50 --number 20 --sort delay --save /etc/pacman.d/mirrorlist"
 alias mirrors="sudo reflector --latest 50 --number 20 --sort score --save /etc/pacman.d/mirrorlist"
@@ -245,3 +256,6 @@ alias docker="sudo docker"
 
 alias neofetch="neofetch --ascii ~/.nfdp"
 alias doom="~/.emacs.d/bin/doom"
+
+# Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
+export PATH="$PATH:$HOME/.rvm/bin"
