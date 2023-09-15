@@ -16,7 +16,6 @@ call plug#begin()
 	Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 	Plug 'lervag/vimtex'
 	Plug 'mattn/emmet-vim'
-
 call plug#end()
 
 " Basic config section
@@ -33,8 +32,6 @@ set autoread
 set autowrite
 set autoindent
 set si
-set cindent
-set ft=nasm
 syntax on
 set nobackup
 set nowb
