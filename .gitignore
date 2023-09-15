@@ -1,12 +1,13 @@
 config/.config/nvim/undo/
 config/.config/lazygit/state.yml
-config/.config/coc/
 bin/
 
 emacs/.emacs.d/elpa/
 emacs/.emacs.d/projectile-bookmarks.eld
 emacs/.emacs.d/recentf
 emacs/.emacs.d/srecode-map.el
+
+vim/.vim/undodir
 
 bash/.bash_history
 .DS_Store
