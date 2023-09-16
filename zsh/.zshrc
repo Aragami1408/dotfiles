@@ -138,6 +138,10 @@ if [ -d "/usr/local/opt/ruby/bin" ] ;
     then PATH="/usr/local/opt/ruby/bin:$PATH"
 fi
 
+if [ -d "~/.bun/bin" ] ;
+    then PATH="~/.bun/bin"
+fi
+
 case ${TERM} in
   xterm*|rxvt*|Eterm*|aterm|kterm|gnome*|alacritty|st|konsole*)
     PROMPT_COMMAND='echo -ne "\033]0;${USER}@${HOSTNAME%%.*}:${PWD/#$HOME/\~}\007"'
@@ -259,3 +263,14 @@ alias doom="~/.emacs.d/bin/doom"
 
 # Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
 export PATH="$PATH:$HOME/.rvm/bin"
+
+# bun completions
+[ -s "/Users/higanbana/.bun/_bun" ] && source "/Users/higanbana/.bun/_bun"
+
+# bun
+export BUN_INSTALL="$HOME/.bun"
+export PATH="$BUN_INSTALL/bin:$PATH"
+
+# bun
+export BUN_INSTALL="$HOME/.bun"
+export PATH="$BUN_INSTALL/bin:$PATH"
