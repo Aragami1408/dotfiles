@@ -300,12 +300,12 @@ vim.keymap.set('n', 'j', "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = tr
 vim.keymap.set('n', '<leader>op', vim.cmd.Ex)
 
 -- Split pane utilities
-vim.keymap.set('n', '<leader>wh', ":wincmd h<CR>")
-vim.keymap.set('n', '<leader>wj', ":wincmd j<CR>")
-vim.keymap.set('n', '<leader>wk', ":wincmd k<CR>")
-vim.keymap.set('n', '<leader>wl', ":wincmd l<CR>")
-vim.keymap.set('n', '<leader>wv', ":vsplit<CR>")
-vim.keymap.set('n', '<leader>ws', ":split<CR>")
+vim.keymap.set('n', '<leader>wh', ":wincmd h<CR>", { desc = 'switch to left pane'})
+vim.keymap.set('n', '<leader>wj', ":wincmd j<CR>", { desc = 'switch to bottom pane'})
+vim.keymap.set('n', '<leader>wk', ":wincmd k<CR>", { desc = 'switch to top pane'})
+vim.keymap.set('n', '<leader>wl', ":wincmd l<CR>", { desc = 'switch to right pane'})
+vim.keymap.set('n', '<leader>wv', ":vsplit<CR>", { desc = 'vertical split'})
+vim.keymap.set('n', '<leader>ws', ":split<CR>", { desc = 'horizontal split'})
 
 vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv")
 vim.keymap.set("v", "K", ":m '<-2<CR>gv=gv")
@@ -499,6 +499,12 @@ local servers = {
   clangd = {},
   rust_analyzer = {},
   tsserver = {},
+  zls = {},
+  pyright = {},
+  arduino_language_server = {},
+  asm_lsp = {},
+  cmake = {},
+
 
   lua_ls = {
     Lua = {
