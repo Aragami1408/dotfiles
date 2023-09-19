@@ -1,21 +1,21 @@
 call plug#begin()
-	Plug 'preservim/nerdcommenter'
-	Plug 'easymotion/vim-easymotion'
-	Plug 'Xuyuanp/nerdtree-git-plugin'
-	Plug 'terryma/vim-multiple-cursors'
-	Plug 'junegunn/vim-easy-align'
-	Plug 'scrooloose/nerdtree'
-	Plug 'jiangmiao/auto-pairs'
-	Plug 'morhetz/gruvbox'
-	Plug 'phanviet/vim-monokai-pro'
-	Plug 'vim-airline/vim-airline'
-	Plug 'vim-airline/vim-airline-themes'
-	Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
-	Plug 'junegunn/fzf.vim'
-	Plug 'neoclide/coc.nvim', {'branch': 'release'}
-	Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
-	Plug 'lervag/vimtex'
-	Plug 'mattn/emmet-vim'
+Plug 'preservim/nerdcommenter'
+Plug 'easymotion/vim-easymotion'
+Plug 'Xuyuanp/nerdtree-git-plugin'
+Plug 'terryma/vim-multiple-cursors'
+Plug 'junegunn/vim-easy-align'
+Plug 'scrooloose/nerdtree'
+Plug 'jiangmiao/auto-pairs'
+Plug 'morhetz/gruvbox'
+Plug 'phanviet/vim-monokai-pro'
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+Plug 'junegunn/fzf.vim'
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+Plug 'lervag/vimtex'
+Plug 'mattn/emmet-vim'
 call plug#end()
 
 " Basic config section
@@ -24,9 +24,9 @@ set background=dark
 set clipboard=unnamedplus
 set nu rnu
 augroup numbertoggle
-	autocmd!
-	autocmd BufEnter,FocusGained,InsertLeave * set norelativenumber
-	autocmd BufLeave,FocusLost,InsertEnter * set relativenumber
+  autocmd!
+  autocmd BufEnter,FocusGained,InsertLeave * set norelativenumber
+  autocmd BufLeave,FocusLost,InsertEnter * set relativenumber
 augroup end
 set autoread
 set autowrite
@@ -69,50 +69,50 @@ set splitright
 let s:float_term_border_win = 0
 let s:float_term_win = 0
 function! FloatTerm(...)
-	" Configuration
-	let height = float2nr((&lines - 2) * 0.8)
-	let row = float2nr((&lines - height) / 2)
-	let width = float2nr(&columns * 0.8)
-	let col = float2nr((&columns - width) / 2)
-	" Border Window
-	let border_opts = {
-				\ 'relative': 'editor',
-				\ 'row': row - 1,
-				\ 'col': col - 2,
-				\ 'width': width + 4,
-				\ 'height': height + 2,
-				\ 'style': 'minimal'
-				\ }
-	" Terminal Window
-	let opts = {
-				\ 'relative': 'editor',
-				\ 'row': row,
-				\ 'col': col,
-				\ 'width': width,
-				\ 'height': height,
-				\ 'style': 'minimal'
-				\ }
-	let top = "+" . repeat("-", width + 2) . "+"
-	let mid = "|" . repeat(" ", width + 2) . "|"
-	let bot = "+" . repeat("-", width + 2) . "+"
-	let lines = [top] + repeat([mid], height) + [bot]
-	let bbuf = nvim_create_buf(v:false, v:true)
-	call nvim_buf_set_lines(bbuf, 0, -1, v:true, lines)
-	let s:float_term_border_win = nvim_open_win(bbuf, v:true, border_opts)
-	let buf = nvim_create_buf(v:false, v:true)
-	let s:float_term_win = nvim_open_win(buf, v:true, opts)
-	" Styling
-	hi FloatWinBorder guifg=#87bb7c
-	call setwinvar(s:float_term_border_win, '&winhl', 'Normal:FloatWinBorder')
-	call setwinvar(s:float_term_win, '&winhl', 'Normal:Normal')
-	if a:0 == 0
-		terminal
-	else
-		call termopen(a:1)
-	endif
-	startinsert
-	" Close border window when terminal window close
-	autocmd TermClose * ++once :bd! | call nvim_win_close(s:float_term_border_win, v:true)
+  " Configuration
+  let height = float2nr((&lines - 2) * 0.8)
+  let row = float2nr((&lines - height) / 2)
+  let width = float2nr(&columns * 0.8)
+  let col = float2nr((&columns - width) / 2)
+  " Border Window
+  let border_opts = {
+	\ 'relative': 'editor',
+	\ 'row': row - 1,
+	\ 'col': col - 2,
+	\ 'width': width + 4,
+	\ 'height': height + 2,
+	\ 'style': 'minimal'
+	\ }
+  " Terminal Window
+  let opts = {
+	\ 'relative': 'editor',
+	\ 'row': row,
+	\ 'col': col,
+	\ 'width': width,
+	\ 'height': height,
+	\ 'style': 'minimal'
+	\ }
+  let top = "+" . repeat("-", width + 2) . "+"
+  let mid = "|" . repeat(" ", width + 2) . "|"
+  let bot = "+" . repeat("-", width + 2) . "+"
+  let lines = [top] + repeat([mid], height) + [bot]
+  let bbuf = nvim_create_buf(v:false, v:true)
+  call nvim_buf_set_lines(bbuf, 0, -1, v:true, lines)
+  let s:float_term_border_win = nvim_open_win(bbuf, v:true, border_opts)
+  let buf = nvim_create_buf(v:false, v:true)
+  let s:float_term_win = nvim_open_win(buf, v:true, opts)
+  " Styling
+  hi FloatWinBorder guifg=#87bb7c
+  call setwinvar(s:float_term_border_win, '&winhl', 'Normal:FloatWinBorder')
+  call setwinvar(s:float_term_win, '&winhl', 'Normal:Normal')
+  if a:0 == 0
+    terminal
+  else
+    call termopen(a:1)
+  endif
+  startinsert
+  " Close border window when terminal window close
+  autocmd TermClose * ++once :bd! | call nvim_win_close(s:float_term_border_win, v:true)
 endfunction
 
 let g:mapleader = " "
@@ -212,7 +212,7 @@ else
 endif
 
 inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm()
-                              \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
+      \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
 
 nmap <silent> <leader>[g <Plug>(coc-diagnostic-prev)
 nmap <silent> <leader>]g <Plug>(coc-diagnostic-next)
