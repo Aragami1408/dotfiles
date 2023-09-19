@@ -297,7 +297,7 @@ vim.keymap.set('n', 'k', "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = tr
 vim.keymap.set('n', 'j', "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
 
 -- Open file explorer
-vim.keymap.set('n', '<leader>op', vim.cmd.Ex)
+vim.keymap.set('n', '<leader>op', vim.cmd.Ex, { desc = '[O]pen [P]roject explorer' })
 
 -- Split pane utilities
 vim.keymap.set('n', '<leader>wh', ":wincmd h<CR>", { desc = 'switch to left pane'})
@@ -336,10 +336,10 @@ vim.api.nvim_create_autocmd('TextYankPost', {
 -- [[ Configure Floating Terminal  ]]
 vim.cmd('source ~/.config/nvim/float_term.vim')
 vim.keymap.set('n', '<leader>tt', ':call FloatTerm()<CR>', { desc = 'Open [T]erminal'})
-vim.keymap.set('n', '<leader>tg', ':call FloatTerm("lazygit")<CR>', { desc = 'Open [T]erminal'})
-vim.keymap.set('n', '<leader>tn', ':call FloatTerm("node")<CR>', { desc = 'Open [T]erminal'})
-vim.keymap.set('n', '<leader>tp', ':call FloatTerm("python3")<CR>', { desc = 'Open [T]erminal'})
-vim.keymap.set('n', '<leader>tr', ':call FloatTerm("irb")<CR>', { desc = 'Open [T]erminal'})
+vim.keymap.set('n', '<leader>tg', ':call FloatTerm("lazygit")<CR>', { desc = 'Open [T]erminal: Lazy[G]it'})
+vim.keymap.set('n', '<leader>tn', ':call FloatTerm("node")<CR>', { desc = 'Open [T]erminal: [N]ode REPL'})
+vim.keymap.set('n', '<leader>tp', ':call FloatTerm("python3")<CR>', { desc = 'Open [T]erminal: [P]ython3 REPL'})
+vim.keymap.set('n', '<leader>tr', ':call FloatTerm("irb")<CR>', { desc = 'Open [T]erminal: [R]uby REPL'})
 
 -- [[ Configure Telescope ]]
 -- See `:help telescope` and `:help telescope.setup()`
@@ -504,6 +504,7 @@ local servers = {
   arduino_language_server = {},
   asm_lsp = {},
   cmake = {},
+  html = {},
 
 
   lua_ls = {
