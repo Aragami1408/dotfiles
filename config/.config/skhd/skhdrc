@@ -22,7 +22,7 @@ shift + cmd - y : yabai -m space --mirror y-axis
 shift + cmd - x : yabai -m space --mirror x-axis
 
 # toggle window float
-shift + cmd - t : yabal -m window --toggle float
+shift + cmd - f : yabal -m window --toggle float
 
 # Modifying Window Size
 
