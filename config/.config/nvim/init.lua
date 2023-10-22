@@ -94,6 +94,20 @@ require('lazy').setup({
   },
 
   {
+    -- Debugger Adapter
+    'mfussenegger/nvim-dap'
+  },
+
+  {
+    -- Debugger Adapter UI
+    'rcarriga/nvim-dap-ui'
+  },
+
+  {
+    'theHamsta/nvim-dap-virtual-text'
+  },
+
+  {
     -- Autocompletion
     'hrsh7th/nvim-cmp',
     dependencies = {
@@ -170,10 +184,8 @@ require('lazy').setup({
     'lukas-reineke/indent-blankline.nvim',
     -- Enable `lukas-reineke/indent-blankline.nvim`
     -- See `:help indent_blankline.txt`
-    opts = {
-      char = '┊',
-      show_trailing_blankline_indent = false,
-    },
+    main = "ibl",
+    opts = {}
   },
 
   -- "gc" to comment visual regions/lines
@@ -233,9 +245,8 @@ vim.o.guicursor = ""
 
 -- Tabstops
 vim.o.tabstop = 4
-vim.o.softtabstop = 4
 vim.o.shiftwidth = 4
-vim.o.shiftround = true
+vim.o.smartindent = true
 -- Set highlight on search
 vim.o.hlsearch = false
 vim.o.incsearch = true
@@ -285,6 +296,9 @@ function ColorMyPencils(color)
 end
 
 ColorMyPencils()
+
+-- [[ User commands ]]
+vim.api.nvim_create_user_command('VimConfig', 'e ~/.config/nvim/init.lua', {})
 
 -- [[ Basic Keymaps ]]
 
@@ -505,7 +519,7 @@ local servers = {
   asm_lsp = {},
   cmake = {},
   html = {},
-
+  solargraph = {},
 
   lua_ls = {
     Lua = {
@@ -588,5 +602,60 @@ cmp.setup {
   },
 }
 
+-- [[ Configure Debugger Adapter ]]
+require("dapui").setup()
+require("nvim-dap-virtual-text").setup()
+
+local dap = require("dap")
+local dapui = require("dapui")
+
+dap.listeners.after.event_initialized["dapui_config"] = function()
+  dapui.open()
+end
+dap.listeners.before.event_terminated["dapui_config"] = function()
+  dapui.close()
+end
+dap.listeners.before.event_exited["dapui_config"] = function()
+  dapui.close()
+end
+
+vim.keymap.set("n", "<leader>db", ":DapToggleBreakpoint<CR>", {desc = "[D]ebugger Toggle [B]reakpoint"})
+vim.keymap.set("n", "<leader>dc", ":DapContinue<CR>", {desc = "[D]ebugger [C]ontinue"})
+vim.keymap.set("n", "<leader>dsi", ":DapStepInto<CR>", {desc = "[D]ebugger [S]tep [I]nto"})
+vim.keymap.set("n", "<leader>dso", ":DapStepOut<CR>", {desc = "[D]ebugger [S]tep [O]ut"})
+vim.keymap.set("n", "<leader>dsv", ":DapStepOver<CR>", {desc = "[D]ebugger [S]tep O[v]er"})
+vim.keymap.set("n", "<leader>dr", ":lua require('dapui').open({reset = true})<CR>", {desc = "[D]ebugger UI [R]eset"})
+
+local mason_registry = require("mason-registry")
+local codelldb = mason_registry.get_package("codelldb")
+
+dap.adapters.codelldb = {
+  type = 'server',
+  port = '${port}',
+  executable = {
+    command = codelldb:get_install_path() .. "/codelldb",
+    args = {"--port", "${port}"},
+  },
+}
+
+dap.configurations.cpp = {
+  {
+    name = "Launch file",
+    type = "codelldb",
+    request = "launch",
+    program = function()
+      return vim.fn.input('Path to executable: ', vim.fn.getcwd() .. '/', 'file')
+    end,
+    cwd = '${workspaceFolder}',
+    stopOnEntry = false,
+  },
+}
+
+dap.configurations.c = dap.configurations.cpp
+dap.configurations.rust = dap.configurations.cpp
+
+
 -- The line beneath this is called `modeline`. See `:help modeline`
 -- vim: ts=2 sts=2 sw=2 et
+vim.o.tabstop = 4
+vim.o.shiftwidth = 4
