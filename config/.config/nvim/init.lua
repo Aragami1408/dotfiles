@@ -157,15 +157,6 @@ require('lazy').setup({
   },
 
   {
-    -- Gruvbox Theme
-    'ellisonleao/gruvbox.nvim',
-    priority = 1000,
-    config = function()
-      vim.cmd.colorscheme 'gruvbox'
-    end,
-  },
-
-  {
     -- Set lualine as statusline
     'nvim-lualine/lualine.nvim',
     -- See `:help lualine.txt`
@@ -221,6 +212,22 @@ require('lazy').setup({
     build = ':TSUpdate',
   },
 
+  {
+    'andweeb/presence.nvim'
+  },
+  
+  {
+    'christoomey/vim-tmux-navigator',
+    lazy = false
+  },
+
+  {
+    'folke/tokyonight.nvim',
+    lazy = false,
+    priority = 1000,
+    opts = {}
+  }
+
   -- NOTE: Next Step on Your Neovim Journey: Add/Configure additional "plugins" for kickstart
   --       These are some example plugins that I've included in the kickstart repository.
   --       Uncomment any of the lines below to enable them.
@@ -245,8 +252,9 @@ vim.o.guicursor = ""
 
 -- Tabstops
 vim.o.tabstop = 4
-vim.o.shiftwidth = 4
+vim.o.shiftwidth = 2
 vim.o.smartindent = true
+vim.o.expandtab = true
 -- Set highlight on search
 vim.o.hlsearch = false
 vim.o.incsearch = true
@@ -262,9 +270,6 @@ vim.o.mouse = 'a'
 --  Remove this option if you want your OS clipboard to remain independent.
 --  See `:help 'clipboard'`
 vim.o.clipboard = 'unnamedplus'
-
--- Enable break indent
-vim.o.breakindent = true
 
 -- Save undo history
 vim.o.undofile = true
@@ -288,8 +293,14 @@ vim.o.termguicolors = true
 
 -- [[ Colorscheme ]]
 
+require('tokyonight').setup({
+  style = 'night',
+  on_colors = function(colors) end,
+  on_highlights = function(highlights, colors) end,
+})
+
 function ColorMyPencils(color)
-    color = color or "gruvbox"
+    color = color or "tokyonight"
     vim.cmd.colorscheme(color)
     vim.api.nvim_set_hl(0, "Normal", {bg = "none"})
     vim.api.nvim_set_hl(0, "NormalFloat", {bg = "none"})
@@ -400,7 +411,6 @@ require('nvim-treesitter.configs').setup {
   auto_install = false,
 
   highlight = { enable = true },
-  indent = { enable = true },
   incremental_selection = {
     enable = true,
     keymaps = {
@@ -657,5 +667,17 @@ dap.configurations.rust = dap.configurations.cpp
 
 -- The line beneath this is called `modeline`. See `:help modeline`
 -- vim: ts=2 sts=2 sw=2 et
-vim.o.tabstop = 4
-vim.o.shiftwidth = 4
+
+-- [[ Discord Presence ]]
+require("presence").setup({
+  enable_line_number = true,
+  debounce_timeout = 5,
+  main_image = "file",
+  neovim_image_text = "Grinding Custom Program"
+})
+
+-- [[ Tmux Navigation ]]
+vim.keymap.set("n", "<leader>wh", ":TmuxNavigateLeft<CR>", {desc = "window left"})
+vim.keymap.set("n", "<leader>wl", ":TmuxNavigateRight<CR>", {desc = "window right"})
+vim.keymap.set("n", "<leader>wj", ":TmuxNavigateDown<CR>", {desc = "window down"})
+vim.keymap.set("n", "<leader>wk", ":TmuxNavigateUp<CR>", {desc = "window up"})
