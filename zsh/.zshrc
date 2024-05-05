@@ -1,5 +1,5 @@
 export ZSH="$HOME/.oh-my-zsh" # TODO: Install oh-my-zsh
-ZSH_THEME="bira"
+ZSH_THEME="bira" # set by `omz`
 
 HYPHEN_INSENSITIVE="true"
 
@@ -44,6 +44,8 @@ export MPD_PORT="6601"
 
 export PREFIX="$HOME/opt/cross"
 export TARGET=i686-elf
+
+export VULKAN_SDK="$HOME/VulkanSDK/1.3.268.1"
 
 
 if [ -d "$HOME/.bin" ] ;
@@ -147,11 +149,11 @@ alias yabaiconfig="nvim ~/.config/yabai/yabairc"
 alias skhdconfig="nvim ~/.config/skhd/skhdrc"
 alias displayconfig="nvim ~/.screenlayout/dual_monitor_1600_900.sh"
 
-alias ls='exa -al --color=always --group-directories-first' # my preferred listing
-alias la='exa -a --color=always --group-directories-first'  # all files and dirs
-alias ll='exa -l --color=always --group-directories-first'  # long format
-alias lt='exa -aT --color=always --group-directories-first' # tree listing
-alias l.='exa -a | egrep "^\."'
+alias ls='eza -al --color=always --group-directories-first --header --git' # my preferred listing
+alias la='eza -a --color=always --group-directories-first --header --git'  # all files and dirs
+alias ll='eza -l --color=always --group-directories-first --header --git'  # long format
+alias lt='eza -aT --color=always --group-directories-first --header --git' # tree listing
+alias l.='eza -a | egrep "^\."'
 
 # only for arch linux
 alias mirror="sudo reflector -f 30 -l 30 --number 10 --verbose --save /etc/pacman.d/mirrorlist"
@@ -194,9 +196,6 @@ alias yta-wav="yt-dlp --extract-audio --audio-format wav "
 alias ytv-best="yt-dlp -f bestvideo+bestaudio "
 alias yta-aupl='yt-dlp -f "bestaudio" --continue --no-overwrites --ignore-errors --extract-audio --audio-format opus -o "%(title)s.%(ext)s"'
 
-alias docker="sudo docker"
-
-
 alias neofetch="neofetch --ascii ~/.nfdp"
 alias doom="~/.emacs.d/bin/doom"
 
@@ -218,3 +217,4 @@ export PATH="$BUN_INSTALL/bin:$PATH"
 export SDKMAN_DIR="$HOME/.sdkman"
 [[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh"
 
+export PATH="/Users/higanbana/.splashkit:$PATH"

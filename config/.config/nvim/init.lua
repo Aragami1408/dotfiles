@@ -204,6 +204,10 @@ require('lazy').setup({
   },
 
   {
+    'nvim-tree/nvim-tree.lua'
+  },
+
+  {
     -- Highlight, edit, and navigate code
     'nvim-treesitter/nvim-treesitter',
     dependencies = {
@@ -215,18 +219,30 @@ require('lazy').setup({
   {
     'andweeb/presence.nvim'
   },
-  
+
   {
     'christoomey/vim-tmux-navigator',
     lazy = false
   },
 
   {
-    'folke/tokyonight.nvim',
+    'ellisonleao/gruvbox.nvim',
     lazy = false,
     priority = 1000,
     opts = {}
-  }
+  },
+  
+  {
+    'nvimdev/dashboard-nvim',
+    event = 'VimEnter',
+    config = function()
+      require('dashboard').setup {
+        -- config
+      }
+    end,
+    dependencies = { {'nvim-tree/nvim-web-devicons'}}
+  },
+
 
   -- NOTE: Next Step on Your Neovim Journey: Add/Configure additional "plugins" for kickstart
   --       These are some example plugins that I've included in the kickstart repository.
@@ -266,6 +282,9 @@ vim.wo.relativenumber = true
 -- Enable mouse mode
 vim.o.mouse = 'a'
 
+-- Disable swap
+vim.o.noswapfile = true
+
 -- Sync clipboard between OS and Neovim.
 --  Remove this option if you want your OS clipboard to remain independent.
 --  See `:help 'clipboard'`
@@ -293,14 +312,14 @@ vim.o.termguicolors = true
 
 -- [[ Colorscheme ]]
 
-require('tokyonight').setup({
+require('gruvbox').setup({
   style = 'night',
   on_colors = function(colors) end,
   on_highlights = function(highlights, colors) end,
 })
 
 function ColorMyPencils(color)
-    color = color or "tokyonight"
+    color = color or "gruvbox"
     vim.cmd.colorscheme(color)
     vim.api.nvim_set_hl(0, "Normal", {bg = "none"})
     vim.api.nvim_set_hl(0, "NormalFloat", {bg = "none"})
@@ -321,8 +340,6 @@ vim.keymap.set({ 'n', 'v' }, '<Space>', '<Nop>', { silent = true })
 vim.keymap.set('n', 'k', "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
 vim.keymap.set('n', 'j', "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
 
--- Open file explorer
-vim.keymap.set('n', '<leader>op', vim.cmd.Ex, { desc = '[O]pen [P]roject explorer' })
 
 -- Split pane utilities
 vim.keymap.set('n', '<leader>wh', ":wincmd h<CR>", { desc = 'switch to left pane'})
@@ -400,6 +417,22 @@ vim.keymap.set('n', '<leader>fw', require('telescope.builtin').grep_string, { de
 vim.keymap.set('n', '<leader>fg', require('telescope.builtin').live_grep, { desc = '[F]ind by [G]rep' })
 vim.keymap.set('n', '<leader>fd', require('telescope.builtin').diagnostics, { desc = '[F]ind [D]iagnostics' })
 vim.keymap.set('n', '<leader>fr', require('telescope.builtin').resume, { desc = '[F]ind [R]resume' })
+
+-- [[ Configure nvim-tree ]]
+local setup, nvimtree = pcall(require, "nvim-tree")
+if not setup then
+  return
+end
+
+-- Open file explorer
+-- recommended settings from nvim-tree documentation
+vim.g.loaded = 1
+vim.g.loaded_netrwPlugin = 1
+
+nvimtree.setup()
+
+vim.keymap.set('n', '<leader>op', ":NvimTreeToggle<CR>", { desc = '[O]pen [P]roject explorer' })
+
 
 -- [[ Configure Treesitter ]]
 -- See `:help nvim-treesitter`
@@ -521,6 +554,7 @@ end
 --  define the property 'filetypes' to the map in question.
 local servers = {
   clangd = {},
+  csharp_ls = {},
   rust_analyzer = {},
   tsserver = {},
   zls = {},
