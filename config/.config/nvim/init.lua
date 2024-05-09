@@ -71,9 +71,6 @@ require('lazy').setup({
   'tpope/vim-fugitive',
   'tpope/vim-rhubarb',
 
-  -- Detect tabstop and shiftwidth automatically
-  'tpope/vim-sleuth',
-
   -- NOTE: This is where your plugins related to LSP can be installed.
   --  The configuration is done below. Search for lspconfig to find it below.
   {
@@ -269,7 +266,7 @@ vim.o.guicursor = ""
 -- Tabstops
 vim.o.tabstop = 4
 vim.o.shiftwidth = 2
-vim.o.smartindent = true
+-- vim.o.smartindent = true
 vim.o.expandtab = true
 -- Set highlight on search
 vim.o.hlsearch = false
@@ -653,6 +650,69 @@ require("nvim-dap-virtual-text").setup()
 local dap = require("dap")
 local dapui = require("dapui")
 
+dapui.setup({
+  icons = { expanded = "▾", collapsed = "▸", current_frame = "▸" },
+  mappings = {
+    expand = { "<CR>", "<2-LeftMouse>" },
+    open = "o",
+    remove = "d",
+    edit = "e",
+    repl = "r",
+    toggle = "t",
+  },
+  expand_lines = vim.fn.has("nvim-0.7") == 1,
+  layouts = {
+    {
+      elements = {
+      -- Elements can be strings or table with id and size keys.
+        { id = "scopes", size = 0.25 },
+        "breakpoints",
+        "stacks",
+        "watches",
+      },
+      size = 40, -- 40 columns
+      position = "left",
+    },
+    {
+      elements = {
+        "repl",
+        "console",
+      },
+      size = 0.25, -- 25% of total lines
+      position = "bottom",
+    },
+  },
+  controls = {
+    -- Requires Neovim nightly (or 0.8 when released)
+    enabled = true,
+    -- Display controls in this element
+    element = "repl",
+    icons = {
+      pause = "",
+      play = "",
+      step_into = "",
+      step_over = "",
+      step_out = "",
+      step_back = "",
+      run_last = "↻",
+      terminate = "□",
+    },
+  },
+  floating = {
+    max_height = nil, -- These can be integers or a float between 0 and 1.
+    max_width = nil, -- Floats will be treated as percentage of your screen.
+    border = "single", -- Border style. Can be "single", "double" or "rounded"
+    mappings = {
+      close = { "q", "<Esc>" },
+    },
+  },
+  windows = { indent = 1 },
+  render = {
+    max_type_length = nil, -- Can be integer or nil.
+    max_value_lines = 100, -- Can be integer or nil.
+  }
+})
+
 dap.listeners.after.event_initialized["dapui_config"] = function()
   dapui.open()
 end
@@ -663,11 +723,12 @@ dap.listeners.before.event_exited["dapui_config"] = function()
   dapui.close()
 end
 
-vim.keymap.set("n", "<leader>db", ":DapToggleBreakpoint<CR>", {desc = "[D]ebugger Toggle [B]reakpoint"})
-vim.keymap.set("n", "<leader>dc", ":DapContinue<CR>", {desc = "[D]ebugger [C]ontinue"})
-vim.keymap.set("n", "<leader>dsi", ":DapStepInto<CR>", {desc = "[D]ebugger [S]tep [I]nto"})
-vim.keymap.set("n", "<leader>dso", ":DapStepOut<CR>", {desc = "[D]ebugger [S]tep [O]ut"})
-vim.keymap.set("n", "<leader>dsv", ":DapStepOver<CR>", {desc = "[D]ebugger [S]tep O[v]er"})
+vim.keymap.set("n", "<leader>db", ":DapToggleBreakpoint<CR>", {desc = "[D]ebugger Toggle [b]reakpoint"})
+vim.keymap.set("n", "<leader>dB", ":lua require('dap').set_breakpoint(vim.fn.input('Breakpoint condition: '))<CR>", {desc = "[D]ebugger Toggle Conditional [B]reakpoint"})
+vim.keymap.set("n", "<F5>", ":DapContinue<CR>")
+vim.keymap.set("n", "<F11>", ":DapStepInto<CR>")
+vim.keymap.set("n", "<F12>", ":DapStepOut<CR>")
+vim.keymap.set("n", "<F10>", ":DapStepOver<CR>")
 vim.keymap.set("n", "<leader>dr", ":lua require('dapui').open({reset = true})<CR>", {desc = "[D]ebugger UI [R]eset"})
 
 local mason_registry = require("mason-registry")
@@ -680,6 +741,12 @@ dap.adapters.codelldb = {
     command = codelldb:get_install_path() .. "/codelldb",
     args = {"--port", "${port}"},
   },
+}
+
+dap.adapters.coreclr = {
+  type = 'executable',
+  command = '/usr/local/bin/netcoredbg/netcoredbg',
+  args = {'--interpreter=vscode'}
 }
 
 dap.configurations.cpp = {
@@ -697,6 +764,17 @@ dap.configurations.cpp = {
 
 dap.configurations.c = dap.configurations.cpp
 dap.configurations.rust = dap.configurations.cpp
+
+dap.configurations.cs = {
+  {
+    type = "coreclr",
+    name = "launch - netcoredbg",
+    request = "launch",
+    program = function()
+        return vim.fn.input('Path to dll', vim.fn.getcwd() .. '/bin/Debug/', 'file')
+    end,
+  },
+}
 
 
 -- The line beneath this is called `modeline`. See `:help modeline`
