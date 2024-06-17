@@ -35,5 +35,7 @@ yabai -m rule --add app="^Stats$" manage=off
 yabai -m rule --add app="^Finder$" manage=off
 yabai -m rule --add app="^Karabiner-Elements$" manage=off
 yabai -m rule --add app="^Karabiner-EventViewer$" manage=off
+yabai -m rule --add app="^TinkerTool$" manage=off
+yabai -m rule --add app="Game" manage=off
 
 echo "yabai configuration loaded.."
