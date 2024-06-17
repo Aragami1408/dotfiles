@@ -101,23 +101,11 @@ require('lazy').setup({
   },
 
   {
-    'theHamsta/nvim-dap-virtual-text'
+    'nvim-neotest/nvim-nio'
   },
 
   {
-    -- Autocompletion
-    'hrsh7th/nvim-cmp',
-    dependencies = {
-      -- Snippet Engine & its associated nvim-cmp source
-      'L3MON4D3/LuaSnip',
-      'saadparwaiz1/cmp_luasnip',
-
-      -- Adds LSP completion capabilities
-      'hrsh7th/cmp-nvim-lsp',
-
-      -- Adds a number of user-friendly snippets
-      'rafamadriz/friendly-snippets',
-    },
+    'theHamsta/nvim-dap-virtual-text'
   },
 
   -- Useful plugin to show you pending keybinds.
@@ -230,15 +218,8 @@ require('lazy').setup({
   },
   
   {
-    'nvimdev/dashboard-nvim',
-    event = 'VimEnter',
-    config = function()
-      require('dashboard').setup {
-        -- config
-      }
-    end,
-    dependencies = { {'nvim-tree/nvim-web-devicons'}}
-  },
+    'danilamihailov/beacon.nvim'
+  }
 
 
   -- NOTE: Next Step on Your Neovim Journey: Add/Configure additional "plugins" for kickstart
@@ -266,7 +247,7 @@ vim.o.guicursor = ""
 -- Tabstops
 vim.o.tabstop = 4
 vim.o.shiftwidth = 2
--- vim.o.smartindent = true
+vim.o.smartindent = true
 vim.o.expandtab = true
 -- Set highlight on search
 vim.o.hlsearch = false
@@ -276,8 +257,8 @@ vim.o.incsearch = true
 vim.wo.number = true
 vim.wo.relativenumber = true
 
--- Enable mouse mode
-vim.o.mouse = 'a'
+-- Disable mouse mode
+vim.o.mouse = ''
 
 -- Disable swap
 vim.o.noswapfile = true
@@ -325,7 +306,11 @@ end
 ColorMyPencils()
 
 -- [[ User commands ]]
-vim.api.nvim_create_user_command('VimConfig', 'e ~/.config/nvim/init.lua', {})
+-- For Unix
+-- vim.api.nvim_create_user_command('VimConfig', 'e ~/.config/nvim/init.lua', {})
+
+-- For Windows
+vim.api.nvim_create_user_command('VimConfig', 'e %LOCALAPPDATA%/nvim/init.lua', {})
 
 -- [[ Basic Keymaps ]]
 
@@ -373,12 +358,17 @@ vim.api.nvim_create_autocmd('TextYankPost', {
 })
 
 -- [[ Configure Floating Terminal  ]]
+-- vim.cmd('source C:/Users/Higanbana/AppData/Local/nvim/float_term.vim')
 vim.cmd('source ~/.config/nvim/float_term.vim')
 vim.keymap.set('n', '<leader>tt', ':call FloatTerm()<CR>', { desc = 'Open [T]erminal'})
 vim.keymap.set('n', '<leader>tg', ':call FloatTerm("lazygit")<CR>', { desc = 'Open [T]erminal: Lazy[G]it'})
 vim.keymap.set('n', '<leader>tn', ':call FloatTerm("node")<CR>', { desc = 'Open [T]erminal: [N]ode REPL'})
 vim.keymap.set('n', '<leader>tp', ':call FloatTerm("python3")<CR>', { desc = 'Open [T]erminal: [P]ython3 REPL'})
 vim.keymap.set('n', '<leader>tr', ':call FloatTerm("irb")<CR>', { desc = 'Open [T]erminal: [R]uby REPL'})
+
+-- [[ Configure Beacon ]]
+-- vim.cmd('source C:/Users/Higanbana/AppData/Local/nvim/beacon_config.vim')
+-- vim.cmd('source ~/.config/nvim/beacon_config.vim')
 
 -- [[ Configure Telescope ]]
 -- See `:help telescope` and `:help telescope.setup()`
@@ -553,14 +543,10 @@ local servers = {
   clangd = {},
   csharp_ls = {},
   rust_analyzer = {},
-  tsserver = {},
   zls = {},
-  pyright = {},
   arduino_language_server = {},
   asm_lsp = {},
   cmake = {},
-  html = {},
-  solargraph = {},
 
   lua_ls = {
     Lua = {
@@ -575,7 +561,6 @@ require('neodev').setup()
 
 -- nvim-cmp supports additional completion capabilities, so broadcast that to servers
 local capabilities = vim.lsp.protocol.make_client_capabilities()
-capabilities = require('cmp_nvim_lsp').default_capabilities(capabilities)
 
 -- Ensure the servers above are installed
 local mason_lspconfig = require 'mason-lspconfig'
@@ -595,123 +580,12 @@ mason_lspconfig.setup_handlers {
   end
 }
 
--- [[ Configure nvim-cmp ]]
--- See `:help cmp`
-local cmp = require 'cmp'
-local luasnip = require 'luasnip'
-require('luasnip.loaders.from_vscode').lazy_load()
-luasnip.config.setup {}
-
-cmp.setup {
-  snippet = {
-    expand = function(args)
-      luasnip.lsp_expand(args.body)
-    end,
-  },
-  mapping = cmp.mapping.preset.insert {
-    ['<C-n>'] = cmp.mapping.select_next_item(),
-    ['<C-p>'] = cmp.mapping.select_prev_item(),
-    ['<C-d>'] = cmp.mapping.scroll_docs(-4),
-    ['<C-f>'] = cmp.mapping.scroll_docs(4),
-    ['<C-Space>'] = cmp.mapping.complete {},
-    ['<CR>'] = cmp.mapping.confirm {
-      behavior = cmp.ConfirmBehavior.Replace,
-      select = true,
-    },
-    ['<Tab>'] = cmp.mapping(function(fallback)
-      if cmp.visible() then
-        cmp.select_next_item()
-      elseif luasnip.expand_or_locally_jumpable() then
-        luasnip.expand_or_jump()
-      else
-        fallback()
-      end
-    end, { 'i', 's' }),
-    ['<S-Tab>'] = cmp.mapping(function(fallback)
-      if cmp.visible() then
-        cmp.select_prev_item()
-      elseif luasnip.locally_jumpable(-1) then
-        luasnip.jump(-1)
-      else
-        fallback()
-      end
-    end, { 'i', 's' }),
-  },
-  sources = {
-    { name = 'nvim_lsp' },
-    { name = 'luasnip' },
-  },
-}
-
 -- [[ Configure Debugger Adapter ]]
 require("dapui").setup()
 require("nvim-dap-virtual-text").setup()
 
 local dap = require("dap")
 local dapui = require("dapui")
-
-dapui.setup({
-  icons = { expanded = "▾", collapsed = "▸", current_frame = "▸" },
-  mappings = {
-    expand = { "<CR>", "<2-LeftMouse>" },
-    open = "o",
-    remove = "d",
-    edit = "e",
-    repl = "r",
-    toggle = "t",
-  },
-  expand_lines = vim.fn.has("nvim-0.7") == 1,
-  layouts = {
-    {
-      elements = {
-      -- Elements can be strings or table with id and size keys.
-        { id = "scopes", size = 0.25 },
-        "breakpoints",
-        "stacks",
-        "watches",
-      },
-      size = 40, -- 40 columns
-      position = "left",
-    },
-    {
-      elements = {
-        "repl",
-        "console",
-      },
-      size = 0.25, -- 25% of total lines
-      position = "bottom",
-    },
-  },
-  controls = {
-    -- Requires Neovim nightly (or 0.8 when released)
-    enabled = true,
-    -- Display controls in this element
-    element = "repl",
-    icons = {
-      pause = "",
-      play = "",
-      step_into = "",
-      step_over = "",
-      step_out = "",
-      step_back = "",
-      run_last = "↻",
-      terminate = "□",
-    },
-  },
-  floating = {
-    max_height = nil, -- These can be integers or a float between 0 and 1.
-    max_width = nil, -- Floats will be treated as percentage of your screen.
-    border = "single", -- Border style. Can be "single", "double" or "rounded"
-    mappings = {
-      close = { "q", "<Esc>" },
-    },
-  },
-  windows = { indent = 1 },
-  render = {
-    max_type_length = nil, -- Can be integer or nil.
-    max_value_lines = 100, -- Can be integer or nil.
-  }
-})
 
 dap.listeners.after.event_initialized["dapui_config"] = function()
   dapui.open()
@@ -723,12 +597,11 @@ dap.listeners.before.event_exited["dapui_config"] = function()
   dapui.close()
 end
 
-vim.keymap.set("n", "<leader>db", ":DapToggleBreakpoint<CR>", {desc = "[D]ebugger Toggle [b]reakpoint"})
-vim.keymap.set("n", "<leader>dB", ":lua require('dap').set_breakpoint(vim.fn.input('Breakpoint condition: '))<CR>", {desc = "[D]ebugger Toggle Conditional [B]reakpoint"})
-vim.keymap.set("n", "<F5>", ":DapContinue<CR>")
-vim.keymap.set("n", "<F11>", ":DapStepInto<CR>")
-vim.keymap.set("n", "<F12>", ":DapStepOut<CR>")
-vim.keymap.set("n", "<F10>", ":DapStepOver<CR>")
+vim.keymap.set("n", "<leader>db", ":DapToggleBreakpoint<CR>", {desc = "[D]ebugger Toggle [B]reakpoint"})
+vim.keymap.set("n", "<leader>dc", ":DapContinue<CR>", {desc = "[D]ebugger [C]ontinue"})
+vim.keymap.set("n", "<leader>dsi", ":DapStepInto<CR>", {desc = "[D]ebugger [S]tep [I]nto"})
+vim.keymap.set("n", "<leader>dso", ":DapStepOut<CR>", {desc = "[D]ebugger [S]tep [O]ut"})
+vim.keymap.set("n", "<leader>dsv", ":DapStepOver<CR>", {desc = "[D]ebugger [S]tep O[v]er"})
 vim.keymap.set("n", "<leader>dr", ":lua require('dapui').open({reset = true})<CR>", {desc = "[D]ebugger UI [R]eset"})
 
 local mason_registry = require("mason-registry")
@@ -741,12 +614,6 @@ dap.adapters.codelldb = {
     command = codelldb:get_install_path() .. "/codelldb",
     args = {"--port", "${port}"},
   },
-}
-
-dap.adapters.coreclr = {
-  type = 'executable',
-  command = '/usr/local/bin/netcoredbg/netcoredbg',
-  args = {'--interpreter=vscode'}
 }
 
 dap.configurations.cpp = {
@@ -764,17 +631,6 @@ dap.configurations.cpp = {
 
 dap.configurations.c = dap.configurations.cpp
 dap.configurations.rust = dap.configurations.cpp
-
-dap.configurations.cs = {
-  {
-    type = "coreclr",
-    name = "launch - netcoredbg",
-    request = "launch",
-    program = function()
-        return vim.fn.input('Path to dll', vim.fn.getcwd() .. '/bin/Debug/', 'file')
-    end,
-  },
-}
 
 
 -- The line beneath this is called `modeline`. See `:help modeline`
