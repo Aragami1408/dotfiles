@@ -1,19 +1,74 @@
-export ZSH="$HOME/.oh-my-zsh" # TODO: Install oh-my-zsh
-ZSH_THEME="bira" # set by `omz`
+### Added by Zinit's installer
+if [[ ! -f $HOME/.local/share/zinit/zinit.git/zinit.zsh ]]; then
+    print -P "%F{33} %F{220}Installing %F{33}ZDHARMA-CONTINUUM%F{220} Initiative Plugin Manager (%F{33}zdharma-continuum/zinit%F{220})…%f"
+    command mkdir -p "$HOME/.local/share/zinit" && command chmod g-rwX "$HOME/.local/share/zinit"
+    command git clone https://github.com/zdharma-continuum/zinit "$HOME/.local/share/zinit/zinit.git" && \
+        print -P "%F{33} %F{34}Installation successful.%f%b" || \
+        print -P "%F{160} The clone has failed.%f%b"
+fi
+source "$HOME/.local/share/zinit/zinit.git/zinit.zsh"
+autoload -Uz _zinit
+(( ${+_comps} )) && _comps[zinit]=_zinit
 
-HYPHEN_INSENSITIVE="true"
+# Load a few important annexes, without Turbo
+# (this is currently required for annexes)
+zinit light-mode for \
+    zdharma-continuum/zinit-annex-as-monitor \
+    zdharma-continuum/zinit-annex-bin-gem-node \
+    zdharma-continuum/zinit-annex-patch-dl \
+    zdharma-continuum/zinit-annex-rust
 
-DISABLE_MAGIC_FUNCTIONS="true"
+### End of Zinit's installer chunk
 
-DISABLE_AUTO_TITLE="true"
+zinit load zdharma/history-search-multi-word
+zinit for \
+  light-mode zsh-users/zsh-autosuggestions \
+  light-mode  zdharma/fast-syntax-highlighting \
+              zdharma/history-search-multi-word \
 
-ENABLE_CORRECTION="true"
+zinit ice from"gh-r" as"program"
+zinit light junegunn/fzf
 
-HIST_STAMPS="dd/mm/yyyy"
+zinit snippet OMZL::clipboard.zsh
 
-plugins=(git timer vi-mode z zsh-syntax-highlighting bgnotify per-directory-history git history command-not-found zsh-interactive-cd)
+zinit snippet OMZP::git
+zinit snippet OMZP::timer
+zinit snippet OMZP::vi-mode
+zinit snippet OMZP::z
+zinit snippet OMZP::bgnotify
+zinit snippet OMZP::history
+zinit snippet OMZP::command-not-found
+zinit snippet OMZP::zsh-interactive-cd
+zinit snippet OMZP::fzf
 
-source $ZSH/oh-my-zsh.sh
+ZSH_THEME="bira"
+
+zinit snippet OMZL::git.zsh
+
+zinit snippet OMZP::git
+zinit cdclear -q
+
+setopt promptsubst
+
+zinit snippet OMZT::bira
+
+
+#export ZSH="$HOME/.oh-my-zsh" # TODO: Install oh-my-zsh
+#ZSH_THEME="bira" # set by `omz`
+
+#HYPHEN_INSENSITIVE="true"
+
+#DISABLE_MAGIC_FUNCTIONS="true"
+
+#DISABLE_AUTO_TITLE="true"
+
+#ENABLE_CORRECTION="true"
+
+#HIST_STAMPS="dd/mm/yyyy"
+
+#plugins=(git timer vi-mode z zsh-syntax-highlighting bgnotify per-directory-history git history command-not-found zsh-interactive-cd)
+
+#source $ZSH/oh-my-zsh.sh
 
 if [[ -n $SSH_CONNECTION ]]; then
   export EDITOR='nano'
@@ -47,6 +102,13 @@ export TARGET=i686-elf
 
 export VULKAN_SDK="$HOME/VulkanSDK/1.3.268.1"
 
+export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
+
+
+if [ -d "/usr/local/bin" ] ;
+    then PATH="/usr/local/bin:$PATH"
+fi
 
 if [ -d "$HOME/.bin" ] ;
     then PATH="$HOME/.bin:$PATH"
@@ -131,7 +193,7 @@ fi
 # Reload Shell
 alias reload="source ~/.zshrc"
 
-# 
+# config files aliases
 alias zshconfig="nvim ~/.zshrc"
 alias vimconfig="nvim ~/.config/nvim/init.lua"
 alias termconfig="nvim ~/.config/alacritty/alacritty.yml"
@@ -144,6 +206,7 @@ alias roficonfig="nvim ~/.config/rofi/config.rasi"
 alias tmuxconfig="nvim ~/.config/tmux/tmux.conf"
 alias ncmpconfig="nvim ~/.config/ncmpcpp/config"
 alias barconfig="nvim ~/.config/polybar/config"
+
 # MacOS only
 alias yabaiconfig="nvim ~/.config/yabai/yabairc"
 alias skhdconfig="nvim ~/.config/skhd/skhdrc"
@@ -155,7 +218,7 @@ alias ll='eza -l --color=always --group-directories-first --header --git'  # lon
 alias lt='eza -aT --color=always --group-directories-first --header --git' # tree listing
 alias l.='eza -a | egrep "^\."'
 
-# only for arch linux
+# Arch Linux only
 alias mirror="sudo reflector -f 30 -l 30 --number 10 --verbose --save /etc/pacman.d/mirrorlist"
 alias mirrord="sudo reflector --latest 50 --number 20 --sort delay --save /etc/pacman.d/mirrorlist"
 alias mirrors="sudo reflector --latest 50 --number 20 --sort score --save /etc/pacman.d/mirrorlist"
@@ -169,11 +232,11 @@ alias cp="cp -i"
 alias mv='mv -i'
 alias rm='rm -i'
 
-alias psmem='ps auxf | sort -nr -k 4'
-alias psmem10='ps auxf | sort -nr -k 4 | head -10'
+alias psmem='ps aux | sort -nr -k 4'
+alias psmem10='ps aux | sort -nr -k 4 | head -10'
 
-alias pscpu='ps auxf | sort -nr -k 3'
-alias pscpu10='ps auxf | sort -nr -k 3 | head -10'
+alias pscpu='ps aux | sort -nr -k 3'
+alias pscpu10='ps aux | sort -nr -k 3 | head -10'
 
 alias gpg-check="gpg2 --keyserver-options auto-key-retrieve --verify"
 alias gpg-retrieve="gpg2 --keyserver-options auto-key-retrieve --receive-keys"
@@ -197,6 +260,7 @@ alias ytv-best="yt-dlp -f bestvideo+bestaudio "
 alias yta-aupl='yt-dlp -f "bestaudio" --continue --no-overwrites --ignore-errors --extract-audio --audio-format opus -o "%(title)s.%(ext)s"'
 
 alias neofetch="neofetch --ascii ~/.nfdp"
+alias fastfetch="fastfetch -l ~/.ffdp --logo-color-2 blue"
 alias doom="~/.emacs.d/bin/doom"
 
 # Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
@@ -218,3 +282,9 @@ export SDKMAN_DIR="$HOME/.sdkman"
 [[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh"
 
 export PATH="/Users/higanbana/.splashkit:$PATH"
+
+export NVM_DIR="$HOME/.config/nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
+export PATH="/usr/local/opt/openal-soft/bin:$PATH"
