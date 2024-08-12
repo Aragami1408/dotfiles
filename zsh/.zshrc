@@ -138,6 +138,10 @@ if [ -d "/usr/local/Cellar/openvpn/2.6.6/sbin" ] ;
     then PATH="/usr/local/Cellar/openvpn/2.6.6/sbin:$PATH"
 fi
 
+if [ -d "/Applications/Docker.app/Contents/Resources/bin" ] ;
+    then PATH="/Applications/Docker.app/Contents/Resources/bin:$PATH"
+fi
+
 if [ -d "$(gem path ruby-lsp)" ] ;
     then PATH="$(gem path ruby-lsp)/exe:$PATH"
 fi

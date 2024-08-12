@@ -1,4 +1,5 @@
 config/.config/nvim/undo/
+config/.config/nvim/lazy-lock.json
 config/.config/lazygit/state.yml
 config/.config/tmux/plugins/
 bin/
