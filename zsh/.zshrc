@@ -1,74 +1,19 @@
-### Added by Zinit's installer
-if [[ ! -f $HOME/.local/share/zinit/zinit.git/zinit.zsh ]]; then
-    print -P "%F{33} %F{220}Installing %F{33}ZDHARMA-CONTINUUM%F{220} Initiative Plugin Manager (%F{33}zdharma-continuum/zinit%F{220})…%f"
-    command mkdir -p "$HOME/.local/share/zinit" && command chmod g-rwX "$HOME/.local/share/zinit"
-    command git clone https://github.com/zdharma-continuum/zinit "$HOME/.local/share/zinit/zinit.git" && \
-        print -P "%F{33} %F{34}Installation successful.%f%b" || \
-        print -P "%F{160} The clone has failed.%f%b"
-fi
-source "$HOME/.local/share/zinit/zinit.git/zinit.zsh"
-autoload -Uz _zinit
-(( ${+_comps} )) && _comps[zinit]=_zinit
+export ZSH="$HOME/.oh-my-zsh" # TODO: Install oh-my-zsh
+ZSH_THEME="bira" # set by `omz`
 
-# Load a few important annexes, without Turbo
-# (this is currently required for annexes)
-zinit light-mode for \
-    zdharma-continuum/zinit-annex-as-monitor \
-    zdharma-continuum/zinit-annex-bin-gem-node \
-    zdharma-continuum/zinit-annex-patch-dl \
-    zdharma-continuum/zinit-annex-rust
+HYPHEN_INSENSITIVE="true"
 
-### End of Zinit's installer chunk
+DISABLE_MAGIC_FUNCTIONS="true"
 
-zinit load zdharma/history-search-multi-word
-zinit for \
-  light-mode zsh-users/zsh-autosuggestions \
-  light-mode  zdharma/fast-syntax-highlighting \
-              zdharma/history-search-multi-word \
+DISABLE_AUTO_TITLE="true"
 
-zinit ice from"gh-r" as"program"
-zinit light junegunn/fzf
+ENABLE_CORRECTION="true"
 
-zinit snippet OMZL::clipboard.zsh
+HIST_STAMPS="dd/mm/yyyy"
 
-zinit snippet OMZP::git
-zinit snippet OMZP::timer
-zinit snippet OMZP::vi-mode
-zinit snippet OMZP::z
-zinit snippet OMZP::bgnotify
-zinit snippet OMZP::history
-zinit snippet OMZP::command-not-found
-zinit snippet OMZP::zsh-interactive-cd
-zinit snippet OMZP::fzf
+plugins=(git timer vi-mode z zsh-syntax-highlighting bgnotify per-directory-history git history command-not-found zsh-interactive-cd)
 
-ZSH_THEME="bira"
-
-zinit snippet OMZL::git.zsh
-
-zinit snippet OMZP::git
-zinit cdclear -q
-
-setopt promptsubst
-
-zinit snippet OMZT::bira
-
-
-#export ZSH="$HOME/.oh-my-zsh" # TODO: Install oh-my-zsh
-#ZSH_THEME="bira" # set by `omz`
-
-#HYPHEN_INSENSITIVE="true"
-
-#DISABLE_MAGIC_FUNCTIONS="true"
-
-#DISABLE_AUTO_TITLE="true"
-
-#ENABLE_CORRECTION="true"
-
-#HIST_STAMPS="dd/mm/yyyy"
-
-#plugins=(git timer vi-mode z zsh-syntax-highlighting bgnotify per-directory-history git history command-not-found zsh-interactive-cd)
-
-#source $ZSH/oh-my-zsh.sh
+source $ZSH/oh-my-zsh.sh
 
 if [[ -n $SSH_CONNECTION ]]; then
   export EDITOR='nano'
@@ -76,77 +21,7 @@ else
   export EDITOR='nvim' # TODO: Make sure to install nvim
 fi
 
-export WINEPREFIX="$HOME/.wine"
-
-export WINEARCH=win64
-export WINEDEBUG=-all
-
-export XDG_CONFIG_HOME="$HOME/.config"
-export EDITOR="vim"
-export VISUAL="vim"
-export PAGER="less"
-
-export GTK_IM_MODULE=ibus
-export QT_IM_MODULE=ibus
-export XMODIFIERS=@im=ibus
-export QT4_IM_MODULE=xim
-export CLUTTER_IM_MODULE=ibus
-export GLFW_IM_MODULE=ibus
-export XMODIFERS=@im=ibus
-
-export MPD_HOST="localhost"
-export MPD_PORT="6601"
-
-export PREFIX="$HOME/opt/cross"
-export TARGET=i686-elf
-
-export VULKAN_SDK="$HOME/VulkanSDK/1.3.268.1"
-
-export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
-
-
-if [ -d "/usr/local/bin" ] ;
-    then PATH="/usr/local/bin:$PATH"
-fi
-
-if [ -d "$HOME/.bin" ] ;
-    then PATH="$HOME/.bin:$PATH"
-fi
-
-if [ -d "$HOME/.local/bin" ] ;
-    then PATH="$HOME/.local/bin:$PATH"
-fi
-
-if [ -d "/Applications/XAMPP/xamppfiles" ] ;
-    then PATH="/Applications/XAMPP/xamppfiles:$PATH"
-fi
-
-if [ -d "$PREFIX/bin" ] ;
-    then PATH="$PREFIX/bin:$PATH"
-fi
-
-if [ -d "/usr/local/opt/ruby/bin" ] ;
-    then PATH="/usr/local/opt/ruby/bin:$PATH"
-fi
-
-if [ -d "~/.bun/bin" ] ;
-    then PATH="~/.bun/bin:$PATH"
-fi
-
-if [ -d "/usr/local/Cellar/openvpn/2.6.6/sbin" ] ;
-    then PATH="/usr/local/Cellar/openvpn/2.6.6/sbin:$PATH"
-fi
-
-if [ -d "/Applications/Docker.app/Contents/Resources/bin" ] ;
-    then PATH="/Applications/Docker.app/Contents/Resources/bin:$PATH"
-fi
-
-if [ -d "$(gem path ruby-lsp)" ] ;
-    then PATH="$(gem path ruby-lsp)/exe:$PATH"
-fi
-
-
+export GPG_TTY=$(tty)
 
 case ${TERM} in
   xterm*|rxvt*|Eterm*|aterm|kterm|gnome*|alacritty|st|konsole*)
@@ -213,6 +88,7 @@ alias barconfig="nvim ~/.config/polybar/config"
 
 # MacOS only
 alias yabaiconfig="nvim ~/.config/yabai/yabairc"
+alias aerospaceconfig="nvim ~/.config/aerospace/aerospace.toml"
 alias skhdconfig="nvim ~/.config/skhd/skhdrc"
 alias displayconfig="nvim ~/.screenlayout/dual_monitor_1600_900.sh"
 
@@ -266,29 +142,3 @@ alias yta-aupl='yt-dlp -f "bestaudio" --continue --no-overwrites --ignore-errors
 alias neofetch="neofetch --ascii ~/.nfdp"
 alias fastfetch="fastfetch -l ~/.ffdp --logo-color-2 blue"
 alias doom="~/.emacs.d/bin/doom"
-
-# Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
-export PATH="$PATH:$HOME/.rvm/bin"
-
-# bun completions
-[ -s "/Users/higanbana/.bun/_bun" ] && source "/Users/higanbana/.bun/_bun"
-
-# bun
-export BUN_INSTALL="$HOME/.bun"
-export PATH="$BUN_INSTALL/bin:$PATH"
-
-# bun
-export BUN_INSTALL="$HOME/.bun"
-export PATH="$BUN_INSTALL/bin:$PATH"
-
-#THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
-export SDKMAN_DIR="$HOME/.sdkman"
-[[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh"
-
-export PATH="/Users/higanbana/.splashkit:$PATH"
-
-export NVM_DIR="$HOME/.config/nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
-
-export PATH="/usr/local/opt/openal-soft/bin:$PATH"
