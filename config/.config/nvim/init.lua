@@ -261,7 +261,7 @@ vim.wo.relativenumber = true
 vim.o.mouse = ''
 
 -- Disable swap
-vim.o.noswapfile = true
+vim.o.swapfile = false
 
 -- Sync clipboard between OS and Neovim.
 --  Remove this option if you want your OS clipboard to remain independent.
@@ -541,12 +541,8 @@ end
 --  define the property 'filetypes' to the map in question.
 local servers = {
   clangd = {},
-  csharp_ls = {},
   rust_analyzer = {},
   zls = {},
-  arduino_language_server = {},
-  asm_lsp = {},
-  cmake = {},
 
   lua_ls = {
     Lua = {
