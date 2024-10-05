@@ -576,6 +576,8 @@ mason_lspconfig.setup_handlers {
   end
 }
 
+vim.g.zig_fmt_autosave = 0
+
 -- [[ Configure Debugger Adapter ]]
 require("dapui").setup()
 require("nvim-dap-virtual-text").setup()
