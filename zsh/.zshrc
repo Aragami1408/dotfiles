@@ -11,7 +11,7 @@ ENABLE_CORRECTION="true"
 
 HIST_STAMPS="dd/mm/yyyy"
 
-plugins=(git timer vi-mode z zsh-syntax-highlighting bgnotify per-directory-history git history command-not-found zsh-interactive-cd)
+plugins=(git timer z zsh-syntax-highlighting bgnotify per-directory-history git history command-not-found zsh-interactive-cd)
 
 source $ZSH/oh-my-zsh.sh
 
