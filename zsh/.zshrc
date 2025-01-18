@@ -142,3 +142,14 @@ alias yta-aupl='yt-dlp -f "bestaudio" --continue --no-overwrites --ignore-errors
 alias neofetch="neofetch --ascii ~/.nfdp"
 alias fastfetch="fastfetch -l ~/.ffdp --logo-color-2 blue"
 alias doom="~/.emacs.d/bin/doom"
+
+# bun completions
+[ -s "/Users/higanbana/.bun/_bun" ] && source "/Users/higanbana/.bun/_bun"
+
+# bun
+export BUN_INSTALL="$HOME/.bun"
+export PATH="$BUN_INSTALL/bin:$PATH"
+
+# bun
+export BUN_INSTALL="$HOME/.bun"
+export PATH="$BUN_INSTALL/bin:$PATH"

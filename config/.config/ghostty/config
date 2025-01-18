@@ -1,0 +1,30 @@
+font-family = Unifont-JP
+font-style = Regular
+font-size = 20
+
+adjust-underline-position = 40%
+adjust-underline-thickness = -60%
+
+shell-integration-features = no-cursor
+cursor-style = block
+cursor-style-blink = false
+
+theme = xcodedarkhc
+
+shell-integration = zsh
+
+background-opacity = 0.8
+background-blur-radius = 8
+
+window-vsync = true
+
+keybind = super+ctrl+\=new_split:right
+keybind = super+ctrl+-=new_split:up
+keybind = super+ctrl+h=goto_split:left
+keybind = super+ctrl+j=goto_split:bottom
+keybind = super+ctrl+k=goto_split:top
+keybind = super+ctrl+l=goto_split:right
+keybind = super+alt+h=resize_split:left,10
+keybind = super+alt+j=resize_split:down,10
+keybind = super+alt+k=resize_split:up,10
+keybind = super+alt+l=resize_split:right,10

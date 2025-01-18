@@ -1,0 +1,12 @@
+let g:netrw_dirhistmax  =10
+let g:netrw_dirhistcnt =2
+let g:netrw_dirhist_2='/Users/higanbana/git_project/Danjin/submodules/imgui'
+let g:netrw_dirhist_1='/Users/higanbana/git_project/Danjin/submodules'
+let g:netrw_dirhist_0='/Users/higanbana/git_project/Danjin'
+let g:netrw_dirhist_9='/Users/higanbana/git_project/ziglings.org/exercises'
+let g:netrw_dirhist_8='/Users/higanbana/git_project/ziglings.org'
+let g:netrw_dirhist_7='/Users/higanbana/git_project/ziglings.org/exercises'
+let g:netrw_dirhist_6='/Users/higanbana/git_project/ziglings.org'
+let g:netrw_dirhist_5='/Users/higanbana/git_project/ziglings.org/exercises'
+let g:netrw_dirhist_4='/Users/higanbana/git_project/ziglings.org'
+let g:netrw_dirhist_3='/Users/higanbana/git_project/ziglings.org/exercises'
