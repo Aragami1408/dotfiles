@@ -57,7 +57,7 @@ key_bindings:
     mods: Control
     action: Paste
   - key: C
-    mods: Control+Shift
+    mods: Control|Shift
     action: Copy
   - key: Insert
     mods: Shift
@@ -99,3 +99,4 @@ key_bindings:
     mods: Shift
     action: ScrollToBottom
     mode: ~Alt
+

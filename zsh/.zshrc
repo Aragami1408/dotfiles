@@ -1,3 +1,4 @@
+source ~/.zshenv
 export ZSH="$HOME/.oh-my-zsh" # TODO: Install oh-my-zsh
 ZSH_THEME="bira" # set by `omz`
 
@@ -11,14 +12,14 @@ ENABLE_CORRECTION="true"
 
 HIST_STAMPS="dd/mm/yyyy"
 
-plugins=(git timer z zsh-syntax-highlighting bgnotify per-directory-history git history command-not-found zsh-interactive-cd)
+plugins=(git timer z bgnotify per-directory-history git history command-not-found zsh-interactive-cd)
 
 source $ZSH/oh-my-zsh.sh
 
 if [[ -n $SSH_CONNECTION ]]; then
   export EDITOR='nano'
 else
-  export EDITOR='nvim' # TODO: Make sure to install nvim
+  export EDITOR='vim' # TODO: Make sure to install nvim
 fi
 
 export GPG_TTY=$(tty)
@@ -31,6 +32,9 @@ case ${TERM} in
     PROMPT_COMMAND='echo -ne "\033_${USER}@${HOSTNAME%%.*}:${PWD/#$HOME/\~}\033\\"'
     ;;
 esac
+
+# For i3
+export TERMINAL=alacritty
 
 function extract {
  if [ -z "$1" ]; then
@@ -73,24 +77,24 @@ fi
 alias reload="source ~/.zshrc"
 
 # config files aliases
-alias zshconfig="nvim ~/.zshrc"
-alias vimconfig="nvim ~/.config/nvim/init.lua"
-alias termconfig="nvim ~/.config/alacritty/alacritty.yml"
-alias mpvconfig="nvim ~/.config/mpv/mpv.conf"
-alias wmconfig="nvim ~/.config/bspwm/bspwmrc"
-alias hkeyconfig="nvim ~/.config/sxhkd/sxhkdrc"
-alias compconfig="nvim ~/.config/picom/picom.conf"
-alias cocconfig="nvim ~/.config/vim/coc-settings.json"
-alias roficonfig="nvim ~/.config/rofi/config.rasi"
-alias tmuxconfig="nvim ~/.config/tmux/tmux.conf"
-alias ncmpconfig="nvim ~/.config/ncmpcpp/config"
-alias barconfig="nvim ~/.config/polybar/config"
+alias zshconfig="$EDITOR ~/.zshrc"
+alias nvimconfig="$EDITOR ~/.config/nvim/init.lua"
+alias termconfig="$EDITOR ~/.config/alacritty/alacritty.yml"
+alias mpvconfig="$EDITOR ~/.config/mpv/mpv.conf"
+alias wmconfig="$EDITOR ~/.config/bspwm/bspwmrc"
+alias hkeyconfig="$EDITOR ~/.config/sxhkd/sxhkdrc"
+alias compconfig="$EDITOR ~/.config/picom/picom.conf"
+alias cocconfig="$EDITOR ~/.config/vim/coc-settings.json"
+alias roficonfig="$EDITOR ~/.config/rofi/config.rasi"
+alias tmuxconfig="$EDITOR ~/.config/tmux/tmux.conf"
+alias ncmpconfig="$EDITOR ~/.config/ncmpcpp/config"
+alias barconfig="$EDITOR ~/.config/polybar/config"
 
 # MacOS only
-alias yabaiconfig="nvim ~/.config/yabai/yabairc"
-alias aerospaceconfig="nvim ~/.config/aerospace/aerospace.toml"
-alias skhdconfig="nvim ~/.config/skhd/skhdrc"
-alias displayconfig="nvim ~/.screenlayout/dual_monitor_1600_900.sh"
+alias yabaiconfig="$EDITOR ~/.config/yabai/yabairc"
+alias aerospaceconfig="$EDITOR ~/.config/aerospace/aerospace.toml"
+alias skhdconfig="$EDITOR ~/.config/skhd/skhdrc"
+alias displayconfig="$EDITOR ~/.screenlayout/dual_monitor_1600_900.sh"
 
 alias ls='eza -al --color=always --group-directories-first --header --git' # my preferred listing
 alias la='eza -a --color=always --group-directories-first --header --git'  # all files and dirs
@@ -145,10 +149,6 @@ alias doom="~/.emacs.d/bin/doom"
 
 # bun completions
 [ -s "/Users/higanbana/.bun/_bun" ] && source "/Users/higanbana/.bun/_bun"
-
-# bun
-export BUN_INSTALL="$HOME/.bun"
-export PATH="$BUN_INSTALL/bin:$PATH"
 
 # bun
 export BUN_INSTALL="$HOME/.bun"

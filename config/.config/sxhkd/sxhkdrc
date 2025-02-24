@@ -1,30 +1,30 @@
-#  ____ _____ 
-# |  _ \_   _|  Derek Taylor (DistroTube)
-# | | | || |  	http://www.youtube.com/c/DistroTube
-# | |_| || |  	http://www.gitlab.com/dwt1/ 
-# |____/ |_|  	
-#        
-# A customized sxhkdrc for the bspwm window manager.
-# https://github.com/baskerville/sxhkd
-# https://github.com/baskerville/bspwm
+#
+# wm independent hotkeys
+#
 
+# terminal emulator
+super + Return
+	alacritty
 
-# WM INDEPENDENT KEYBINDINGS
+# program launcher
+super + @space
+	rofi
 
 # make sxhkd reload its configuration files:
 super + Escape
 	pkill -USR1 -x sxhkd
 
-
-# BSPWM HOTKEYS
+#
+# bspwm hotkeys
+#
 
 # quit/restart bspwm
-super + shift + {q,r}
+super + alt + {q,r}
 	bspc {quit,wm -r}
 
 # close and kill
-super + shift + c
-	bspc node -c
+super + {_,shift + }w
+	bspc node -{c,k}
 
 # alternate between the tiled and monocle layout
 super + m
@@ -34,12 +34,13 @@ super + m
 super + y
 	bspc node newest.marked.local -n newest.!automatic.local
 
-# swap the current node and the biggest node
+# swap the current node and the biggest window
 super + g
-	bspc node -s biggest
+	bspc node -s biggest.window
 
-
-# STATE/FLAGS
+#
+# state/flags
+#
 
 # set the window state
 super + {t,shift + t,s,f}
@@ -49,8 +50,9 @@ super + {t,shift + t,s,f}
 super + ctrl + {m,x,y,z}
 	bspc node -g {marked,locked,sticky,private}
 
-
-# FOCUS/SWAP
+#
+# focus/swap
+#
 
 # focus the node in the given direction
 super + {_,shift + }{h,j,k,l}
@@ -60,9 +62,9 @@ super + {_,shift + }{h,j,k,l}
 super + {p,b,comma,period}
 	bspc node -f @{parent,brother,first,second}
 
-# focus the next/previous node in the current desktop
-super + {_,shift + }n
-	bspc node -f {next,prev}.local
+# focus the next/previous window in the current desktop
+super + {_,shift + }c
+	bspc node -f {next,prev}.local.!hidden.window
 
 # focus the next/previous desktop in the current monitor
 super + bracket{left,right}
@@ -80,10 +82,11 @@ super + {o,i}
 
 # focus or send to the given desktop
 super + {_,shift + }{1-9,0}
-	bspc {desktop -f,node -d} focused:'^{1-9,10}'
+	bspc {desktop -f,node -d} '^{1-9,10}'
 
-
-# PRESELECT
+#
+# preselect
+#
 
 # preselect the direction
 super + ctrl + {h,j,k,l}
@@ -101,86 +104,18 @@ super + ctrl + space
 super + ctrl + shift + space
 	bspc query -N -d | xargs -I id -n 1 bspc node id -p cancel
 
-
-# MOVE/RESIZE
+#
+# move/resize
+#
 
 # expand a window by moving one of its side outward
-ctrl + alt + {h,j,k,l}
+super + alt + {h,j,k,l}
 	bspc node -z {left -20 0,bottom 0 20,top 0 -20,right 20 0}
 
 # contract a window by moving one of its side inward
-ctrl + alt + shift + {h,j,k,l}
+super + alt + shift + {h,j,k,l}
 	bspc node -z {right -20 0,top 0 20,bottom 0 -20,left 20 0}
 
 # move a floating window
 super + {Left,Down,Up,Right}
 	bspc node -v {-20 0,0 20,0 -20,20 0}
-
-
-# APPLICATION KEYBINDINGS (Super + Alt + Key)
-
-# terminal emulator
-super + Return
-	alacritty
-# launch ncpamixer
-super + alt + a
-    alacritty -e ncpamixer
-# launch surf browser
-super + alt + b
-    google-chrome-unstable
-# launch cmus
-super + alt + c
-    alacritty -e cmus
-# launch irc
-super + alt + i
-    alacritty -e weechat
-# launch joplin
-super + alt + j
-    alacritty -e joplin
-# launch toot cli
-super + alt + m
-    alacritty -e toot tui
-# launch newsboat feed reeder
-super + alt + n
-    alacritty -e newsboat
-# launch pianobar
-super + alt + p
-    alacritty -e pianobar
-# launch rtv
-super + alt + r
-    alacritty -e rtv
-# launch vifm file manager
-super + alt + v
-    alacritty -e ./.config/vifm/scripts/vifmrun
-# launch wopr
-super + alt + w
-    alacritty -e wopr report.xml
-# launch youtube viewer
-super + alt + y
-    alacritty -e youtube-viewer
-    
-    
-# DMENU SCRIPTS (Alt+Ctrl+Key)
-
-# run program launcher
-alt + ctrl + Return
-    dmenu_run
-# edit common config files
-alt + ctrl + e
-   ~/.dmenu/dmenu-edit-configs.sh
-# surfraw
-alt + ctrl + s
-   ~/.dmenu/dmenu-surfraw.sh 
-# common system montoring programs
-alt + ctrl + m
-   ~/.dmenu/dmenu-sysmon.sh 
-# passmenu
-alt + ctrl + p
-   exec passmenu 
-# reddio Reddit viewer
-alt + ctrl + r
-   ~/.dmenu/dmenu-reddio.sh 
-# stock trading programs
-alt + ctrl + t
-   ~/.dmenu/dmenu-trading.sh 
-{"mode":"full","isActive":false}
