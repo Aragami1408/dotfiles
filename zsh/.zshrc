@@ -1,4 +1,5 @@
 source ~/.zshenv
+
 export ZSH="$HOME/.oh-my-zsh" # TODO: Install oh-my-zsh
 ZSH_THEME="bira" # set by `omz`
 
@@ -147,9 +148,18 @@ alias neofetch="neofetch --ascii ~/.nfdp"
 alias fastfetch="fastfetch -l ~/.ffdp --logo-color-2 blue"
 alias doom="~/.emacs.d/bin/doom"
 
-# bun completions
-[ -s "/Users/higanbana/.bun/_bun" ] && source "/Users/higanbana/.bun/_bun"
+# >>> conda initialize >>>
+# !! Contents within this block are managed by 'conda init' !!
+__conda_setup="$('/home/higanbana/anaconda3/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
+if [ $? -eq 0 ]; then
+    eval "$__conda_setup"
+else
+    if [ -f "/home/higanbana/anaconda3/etc/profile.d/conda.sh" ]; then
+        . "/home/higanbana/anaconda3/etc/profile.d/conda.sh"
+    else
+        export PATH="/home/higanbana/anaconda3/bin:$PATH"
+    fi
+fi
+unset __conda_setup
+# <<< conda initialize <<<
 
-# bun
-export BUN_INSTALL="$HOME/.bun"
-export PATH="$BUN_INSTALL/bin:$PATH"
