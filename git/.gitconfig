@@ -14,10 +14,10 @@
 	grep = auto
 	ui = auto
 [github]
-	user = Aragami1408
+	user = Cao Minh Vu
 [init]
 	defaultBranch = master
 
 [user]
-	name = Aragami1408
+	name = Cao Minh Vu
 	email = vucaominh1408@gmail.com
