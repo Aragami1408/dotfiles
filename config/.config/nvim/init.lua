@@ -543,6 +543,7 @@ local servers = {
   clangd = {},
   rust_analyzer = {},
   zls = {},
+  pylsp = {},
 
   lua_ls = {
     Lua = {
