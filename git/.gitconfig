@@ -4,6 +4,7 @@
 	editor = vim
 	autocrlf = input
 	ignorecase = false
+	pager = less
 [mergo]
 	tool = kdiff3
 [color]
