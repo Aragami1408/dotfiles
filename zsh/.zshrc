@@ -4,13 +4,9 @@ export ZSH="$HOME/.oh-my-zsh" # TODO: Install oh-my-zsh
 ZSH_THEME="bira" # set by `omz`
 
 HYPHEN_INSENSITIVE="true"
-
 DISABLE_MAGIC_FUNCTIONS="true"
-
 DISABLE_AUTO_TITLE="true"
-
 ENABLE_CORRECTION="true"
-
 HIST_STAMPS="dd/mm/yyyy"
 
 plugins=(git timer z bgnotify per-directory-history git history command-not-found zsh-interactive-cd)
@@ -37,6 +33,7 @@ esac
 # For i3
 export TERMINAL=alacritty
 
+# TODO: Make sure to install all zip programs listed in this function
 function extract {
  if [ -z "$1" ]; then
     # display usage if no parameters given
@@ -97,6 +94,7 @@ alias aerospaceconfig="$EDITOR ~/.config/aerospace/aerospace.toml"
 alias skhdconfig="$EDITOR ~/.config/skhd/skhdrc"
 alias displayconfig="$EDITOR ~/.screenlayout/dual_monitor_1600_900.sh"
 
+# TODO: INSTALL 'eza'
 alias ls='eza -al --color=always --group-directories-first --header --git' # my preferred listing
 alias la='eza -a --color=always --group-directories-first --header --git'  # all files and dirs
 alias ll='eza -l --color=always --group-directories-first --header --git'  # long format
@@ -104,6 +102,7 @@ alias lt='eza -aT --color=always --group-directories-first --header --git' # tre
 alias l.='eza -a | egrep "^\."'
 
 # Arch Linux only
+# TODO: INSTALL 'reflector'
 alias mirror="sudo reflector -f 30 -l 30 --number 10 --verbose --save /etc/pacman.d/mirrorlist"
 alias mirrord="sudo reflector --latest 50 --number 20 --sort delay --save /etc/pacman.d/mirrorlist"
 alias mirrors="sudo reflector --latest 50 --number 20 --sort score --save /etc/pacman.d/mirrorlist"
@@ -146,7 +145,8 @@ alias yta-aupl='yt-dlp -f "bestaudio" --continue --no-overwrites --ignore-errors
 
 alias neofetch="neofetch --ascii ~/.nfdp"
 alias fastfetch="fastfetch -l ~/.ffdp --logo-color-2 blue"
-alias doom="~/.emacs.d/bin/doom"
+
+alias export-esp="source ~/git_project/esp/esp-idf/export.sh"
 
 # >>> conda initialize >>>
 # !! Contents within this block are managed by 'conda init' !!

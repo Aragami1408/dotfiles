@@ -1,4 +1,7 @@
 syntax on
+filetype on
+filetype plugin on
+filetype indent on
 set incsearch
 set tabstop=4
 set softtabstop=4
@@ -36,6 +39,9 @@ nmap <leader>w :w!<cr>
 
 " Remove trailing whitespace from Python and Fortran files
 autocmd BufWritePre *.py :%s/\s\+$//e
+
+autocmd BufEnter *.sv,*.svh set filetype=systemverilog
+autocmd BufEnter *.v,*.vh set filetype=verilog
 
 " Disable Highlighting
 map <silent> <leader><cr> :noh<cr>
